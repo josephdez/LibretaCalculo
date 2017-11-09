@@ -4,7 +4,8 @@
 \usepackage{graphicx}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usepackage{enumerate} 
+\usepackage{enumerate}
+\usepackage{amssymb}
 \title{Cálculo Integral En Una Variable}
 \author{José Juan Hernández Cervantes}
 \date{Julio-Diciembre 2017}
@@ -15,10 +16,10 @@
 
 Todo subconjunto no vacío de R acotado superiormente tiene supremo.
 
-Definición : Supremo
+\textbf{Definición : Supremo}
 
-Sea $\mbox{A} \supseteq \mbox{\mathbb{R}}$ y $(\mbox{A} \neq \varnothing )
-$ acotado superiormente.
+
+Sea $A \supseteq \mathbb{R}$ y $A \neq \varnothing$ acotado superiormente.
 
 Diremos que $\bar{x}$  es el supremo de $A$ si cumple:
 
@@ -28,24 +29,75 @@ Diremos que $\bar{x}$  es el supremo de $A$ si cumple:
 2.- Si $z$ es cota superior de $A$, ocurre $\bar{x}\le z$
 
 
-Teorema : Unicidad del supremo.
+\textbf{Teorema : Unicidad del supremo.}
+
 
 Si $\bar{x}$ es el supremo de $A$, $\bar{x}$ es único.
 
-Demostración Supongamos $\bar{x}$ y $\bar{y}$ supremos de
-$A$. Entonces, por definición de supremo ocurre:
+\textbf{Demostración}
 
+
+Supongamos $\bar{x}$ y $\bar{y}$ supremos de
+$A$. Entonces, por definición de supremo ocurre:
 
 $\bar{x}\le\bar{y}\land\bar{y}\le\bar{x}$
 
+$\therefore \bar{x}=\bar{y}$
 
-$\Rightarrow \bar{x}=\bar{y}
-
-Q.E.D$
+\textit{Q.E.D}
 
 
 \section{Propiedad Arquimedeana.}
 
 Para todo par de números $x,y\in \mathbb{R}$ con $x> 0$ $\exists n\in\mathbb{N}$ tal que $nx> y$
+
+
+\textbf{Demostración : por reducción a lo absurdo}
+
+
+Supongamos $\forall{n}\in\mathbb{N},nx\le{y}$.
+
+Si $y\le{0}$ entonces $x\le{0}$, contradicción con la hipótesis $x>0$.
+
+Si $y>0$ sea $A=\lbrace nx:n\in{\mathbb{N}\rbrace $.
+
+Trivialmente $A\subseteq{\mathbb{R}}$ y $A\neq \varnothing
+\mbox{pues}x\in A$,además $A$ está acotado superiormente por $y$.
+
+Invocando el axioma del supremo, existe $\bar{x}=SupA$.
+
+Como $x>0 \Rightarrow -x<0\Rightarrow \bar{x}-x<\bar{x}$.
+
+Con lo que $\bar{x}-x$ no es cota superior de $A$. Entonces existe $a\inA$ tal que $\bar{x}-x<a$.
+
+Esto es $\exists{n}\in{\mathbb{N}}\mbox{ tal que }\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
+
+Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo.
+
+$\therefore\exists{n}\in{\mathbb{N}}\mbox{ tal que }nx>y$ $\forall x>0,y\in{\mathbb{R}}$
+  
+
+\section{Principio Del Buen Orden}
+
+Todo subconjunto no vacío de $\mathbb{N}$ tiene elemento más pequeño.
+
+$\forall A\subseteq{\mathbb{R}$, $ A\neq \varnothing$, $\exists a_0 :a_0 \le a$ $ \forall a\in{A}$.
+
+\section{Principio De Inducción Matemática Fuerte}
+  
+Si $A:=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con las siguientes propiedades:
+
+1.-$P(1)$ es verdadero.
+
+2.-\textit{P(n+1)} es verdadero siempre que \textit{P(n),P(n-1),...,P(2),P(1)} sean verdaderos.
+
+Entonces \textit{P(j)} es verdadero $\forall j\in{\mathbb{N}}$
+
+\subsection{El principio de inducción matemática fuerte implica el Principio de Buen Orden}
+
+\textbf{Demostración : por reducción a lo absurdo}
+
+
+Supongamos que existe $A\subseteq \mathbb{N}}$, $A\neq \varnothing$
 
 \end{document}
