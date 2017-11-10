@@ -4,84 +4,84 @@
 \usepackage{graphicx}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usepackage{enumerate}
 \usepackage{amssymb}
+\usepackage{enumerate}
+\setlength\parindent{0pts}
 \title{Cálculo Integral En Una Variable}
 \author{José Juan Hernández Cervantes}
 \date{Julio-Diciembre 2017}
-\setlength\parindent{0pts}
 \begin{document}
 \maketitle
 \chapter{Propiedades de los Números Reales}
-\section{Axioma Del Supremo}
-Todo subconjunto no vacío de R acotado superiormente tiene supremo.
+\section{Axioma Del Supremo.}
+Todo subconjunto no vacío de $\mathbb{R}$ acotado superiormente tiene supremo.
 
-\textbf{Definición : Supremo}
+\textbf{Definición: Supremo.}
 
-Sea $A \supseteq \mathbb{R}$ y $A \neq \varnothing$ acotado superiormente.
-Diremos que $\bar{x}$  es el supremo de $A$ si cumple:
-
-1.- $\bar{x}$  es cota superior de $A$
-
-
-2.- Si $z$ es cota superior de $A$, ocurre $\bar{x}\le z$
-
-\textbf{Teorema : Unicidad del supremo.}
+Sea $A \supseteq \mathbb{R} \ (A \neq \varnothing)$ un conjunto acotado superiormente.
+Diremos que $\bar{x}$ es el supremo de \textit{A} (y lo denotamos por $SupA$) si cumple:
+\begin{enumerate}[1.]
+\item $\bar{x}$  es cota superior de $A$.
+\item Si \textit{z} es cota superior de \textit{A}, ocurre $\bar{x}\le z$.
+\end{enumerate}
+\textbf{Teorema: Unicidad del supremo.}
 
 Si $\bar{x}$ es el supremo de $A$, $\bar{x}$ es único.
 
 \textbf{Demostración}
 
-Supongamos $\bar{x}$ y $\bar{y}$ supremos de
-$A$. Entonces, por definición de supremo ocurre:
+Supongamos $\bar{x}$ y $\bar{y}$ supremos de $A$. Entonces, por definición de supremo ocurre:
 $\bar{x}\le\bar{y}\land\bar{y}\le\bar{x}$
+
 $\therefore \bar{x}=\bar{y}$
+
 \textit{Q.E.D}
 
 \section{Propiedad Arquimedeana.}
 
-Para todo par de números $x,y\in \mathbb{R}$ con $x> 0$ $\exists n\in\mathbb{N}$ tal que $nx> y$
+Para todo par de números $x,y\in \mathbb{R}\mbox{ con }x> 0 \ \exists n\in\mathbb{N}\mbox{ tal que }nx> y$.
 
-\textbf{Demostración : por reducción a lo absurdo}
-
+\textbf{Demostración: por reducción a lo absurdo.}
 
 Supongamos $\forall{n}\in\mathbb{N},nx\le{y}$.
 Si $y\le{0}$ entonces $x\le{0}$, contradicción con la hipótesis $x>0$.
-Si $y>0$ sea $A=\lbrace nx:n\in{\mathbb{N}}\rbrace $.
-Trivialmente $A\subseteq{\mathbb{R}}$ y $A\neq \varnothing
-\mbox{pues}x\in A$,además $A$ está acotado superiormente por $y$.
+Si $y>0$, sea $A=\lbrace nx:n\in{\mathbb{N}}\rbrace$.
+Trivialmente $A\subseteq{\mathbb{R}}$ y $ A\neq \varnothing\mbox{ pues }x\in A$, además \textit{A} está acotado superiormente por \textit{y}.
 Invocando el axioma del supremo, existe $\bar{x}=SupA$.
 Como $x>0 \Rightarrow -x<0\Rightarrow \bar{x}-x<\bar{x}$.
 Con lo que $\bar{x}-x$ no es cota superior de \textit{A}.
 Entonces existe $a\inA$ tal que $\bar{x}-x<a$.
 Esto es $\exists{n}\in{\mathbb{N}}\mbox{ tal que }\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
 Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo.
+
 $\therefore\exists{n}\in{\mathbb{N}}\mbox{ tal que }nx>y$ $\forall x>0,y\in{\mathbb{R}}$.
 
-\section{Principio Del Buen Orden}
+\textit{Q.E.D}
+
+\section{Principio Del Buen Orden.}
 
 Todo subconjunto no vacío de $\mathbb{N}$ tiene elemento más pequeño.
+
 $\forall A\subseteq{\mathbb{R}}$, $ A\neq \varnothing$, $\exists a_0 :a_0 \le a$ $ \forall a\in{A}$.
-\section{Principio De Inducción Matemática Fuerte}
-Si $A:=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con las siguientes propiedades:
 
-1.-$P(1)$ es verdadero.
+\section{Principio De Inducción Matemática Fuerte.}
 
-2.-\textit{P(n+1)} es verdadero siempre que \textit{P(n),P(n-1),...,P(2),P(1)} sean verdaderos.
-
+Si $A=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con las siguientes propiedades:
+\begin{enumerate}[1.]
+\item \textit{P(1)} es verdadero.
+\item \textit{P(n+1)} es verdadero siempre que \textit{P(n),P(n-1),...,P(2),P(1)} sean verdaderos.
+\end{enumerate}
 Entonces \textit{P(j)} es verdadero $\forall j\in{\mathbb{N}}$
 
-\subsection{El principio de inducción matemática fuerte implica el principio de buen orden}
+\subsection{El principio de inducción matemática fuerte implica el principio de buen orden.}
 
-\textbf{Demostración : por reducción a lo absurdo}
+\textbf{Demostración: por reducción a lo absurdo.}
 
-
-Supongamos que existe $A\subseteq \mathbb{N}$, $A\neq \varnothing$ tal que no existe $a_0
-\in A\mbox{ con }a_0\le{a}$ $\forall a\in{A}$
+Supongamos que existe $A\subseteq \mathbb{N}$, $A\neq \varnothing$ tal que no existe $a_0\in A\mbox{ con }a_0\le{a} \ \forall a\in{A}$
 Sea $B=\lbrace n\in{\mathbb{N}}:n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall{n\in{\mathbb{N}}}$.
 Se sigue que $1\in{B}$ $(B\neq \varnothing)$.
 Supongamos $k\in{B}$, entonces \textit{1,2,...,k-1,k} $\notin{A}$.
-Luego $k+1\notin{A}$, de lo contrario \textit{k+1} sería el elemento más pequeño de $A$.
+Luego $k+1\notin{A}$, de lo contrario \textit{k+1} sería el elemento más pequeño de \textit{A}.
 Por el Principio De Inducción Matemática Fuerte tenemos $B=\mathbb{N}\mbox{, como }A\subseteq{\mathbb{N}}=B\mbox{ ocurre }A=\varnothing$.
 Contradicción con la hipótesis.
 
@@ -89,19 +89,23 @@ $\therefore$ $\forall A\subseteq{\mathbb{N}}$ y $A\neq{\varnothing}$ $\exists$ $
 
 \textit{Q.E.D}
 
-\subsection{El principio de buen orden implica el principio de inducción matemática fuerte}
+\subsection{El principio de buen orden implica el principio de inducción matemática fuerte.}
 
 \textbf{Demostración} pendiente.
 
-\section{Teorema Del Binomio De Newton}
+\section{Teorema Del Binomio De Newton.}
 $\forall a,b\in{\mathbb{R}}\land \forall{n\in{\mathbb{N}}}$ se tiene:
 $(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
 
-\textbf{Demostración : Por inducción sobre n}
+\textbf{Demostración: Por inducción sobre n.}
 
 $P(0):(a+b)^0=1$ por otro lado $\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$
+
 $\therefore$ \textit{P(0)} es verdadero.
-Supongamos \textit{P(r)} verdadero, es decir $(a+b)^r=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k}$. Por demostrar \textit{P(r+1)}.
+
+Supongamos \textit{P(r)} verdadero, es decir $(a+b)^r=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k}$.
+Por demostrar \textit{P(r+1)}.
+
 $(a+b)^{k+1}=(a+b)^k \ (a+b)=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k} \ (a+b)$
 
 \end{document}
