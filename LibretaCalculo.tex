@@ -6,7 +6,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
-\setlength\parindent{0pts}
+\setlength\parindent{0pt}
 \title{Cálculo Integral En Una Variable}
 \author{José Juan Hernández Cervantes}
 \date{Julio-Diciembre 2017}
@@ -39,11 +39,11 @@ $\therefore \bar{x}=\bar{y}$
 
 \section{Propiedad Arquimedeana.}
 
-Para todo par de números $x,y\in \mathbb{R}\mbox{ con }x> 0 \ \exists n\in\mathbb{N}\mbox{ tal que }nx> y$.
+Para todo par de números $x,y\in \mathbb{R}\mbox{ con }x> 0 \ \exists \ n\in\mathbb{N}\mbox{ tal que }nx> y$.
 
 \textbf{Demostración: por reducción a lo absurdo.}
 
-Supongamos $\forall{n}\in\mathbb{N},nx\le{y}$.
+Supongamos $\forall \ n\in\mathbb{N},nx\le{y}$.
 Si $y\le{0}$ entonces $x\le{0}$, contradicción con la hipótesis $x>0$.
 Si $y>0$, sea $A=\lbrace nx:n\in{\mathbb{N}}\rbrace$.
 Trivialmente $A\subseteq{\mathbb{R}}$ y $ A\neq \varnothing\mbox{ pues }x\in A$, además \textit{A} está acotado superiormente por \textit{y}.
@@ -51,18 +51,18 @@ Invocando el axioma del supremo, existe $\bar{x}=SupA$.
 Como $x>0 \Rightarrow -x<0\Rightarrow \bar{x}-x<\bar{x}$.
 Con lo que $\bar{x}-x$ no es cota superior de \textit{A}.
 Entonces existe $a\inA$ tal que $\bar{x}-x<a$.
-Esto es $\exists{n}\in{\mathbb{N}}\mbox{ tal que }\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
+Esto es, $\exists \ n\in{\mathbb{N}}\mbox{ tal que }\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
 Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo.
 
-$\therefore\exists{n}\in{\mathbb{N}}\mbox{ tal que }nx>y$ $\forall x>0,y\in{\mathbb{R}}$.
+$\therefore \ \exists \ n\in{\mathbb{N}}\mbox{ tal que }nx>y$ $\forall \  x>0,y\in{\mathbb{R}}$.
 
 \textit{Q.E.D}
 
 \section{Principio Del Buen Orden.}
 
-Todo subconjunto no vacío de $\mathbb{N}$ tiene elemento más pequeño.
+Todo subconjunto no vacío de $\mathbb{N}$ tiene elemento mínimo.
 
-$\forall A\subseteq{\mathbb{R}}$, $ A\neq \varnothing$, $\exists a_0 :a_0 \le a$ $ \forall a\in{A}$.
+$\forall A\subseteq{\mathbb{R}}$, $ A\neq \varnothing$, $\exists \  a_0 :a_0 \le a$ $ \forall a\in{A}$.
 
 \section{Principio De Inducción Matemática Fuerte.}
 
@@ -77,34 +77,55 @@ Entonces \textit{P(j)} es verdadero $\forall j\in{\mathbb{N}}$
 
 \textbf{Demostración: por reducción a lo absurdo.}
 
-Supongamos que existe $A\subseteq \mathbb{N}$, $A\neq \varnothing$ tal que no existe $a_0\in A\mbox{ con }a_0\le{a} \ \forall a\in{A}$
-Sea $B=\lbrace n\in{\mathbb{N}}:n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall{n\in{\mathbb{N}}}$.
+Supongamos que existe $A\subseteq \mathbb{N}$, $A\neq \varnothing$, tal que no existe $a_0\in A$ \textit{ con } $a_0\le{a} \ \forall \ a\in{A}$.
+Sea $B=\lbrace n\in{\mathbb{N}}:n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall \ n\in{\mathbb{N}}$.
 Se sigue que $1\in{B}$ $(B\neq \varnothing)$.
 Supongamos $k\in{B}$, entonces \textit{1,2,...,k-1,k} $\notin{A}$.
 Luego $k+1\notin{A}$, de lo contrario \textit{k+1} sería el elemento más pequeño de \textit{A}.
 Por el Principio De Inducción Matemática Fuerte tenemos $B=\mathbb{N}\mbox{, como }A\subseteq{\mathbb{N}}=B\mbox{ ocurre }A=\varnothing$.
 Contradicción con la hipótesis.
 
-$\therefore$ $\forall A\subseteq{\mathbb{N}}$ y $A\neq{\varnothing}$ $\exists$ $a_0:a_0\le{a}$ $\forall{a\in{A}}$.
+$\therefore \ \forall \ A\subseteq{\mathbb{N}} \ y \ A\neq{\varnothing} \ \exists \ a_0:a_0\le{a} \ \forall \ a\in{A}$.
 
 \textit{Q.E.D}
 
 \subsection{El principio de buen orden implica el principio de inducción matemática fuerte.}
 
-\textbf{Demostración} pendiente.
+\textbf{Demostración: por reducción a lo absurdo.}
 
+Supongamos $P=\lbrace P(n)/n\in{\mathbb{N}}\rbrace$ es un conjunto de propiedades tales que:
+\begin{enumerate}[1.]
+\item \textit{P(1)} es verdadero.
+\item Siempre que para un $K\in{\mathbb{N}},P(K)$ es verdadero, entonces \textit{P(K+1)} es verdadero.
+\end{enumerate}
+Supongamos falso que \textit{P(n)} es verdadero $\forall$ $n\in{\mathbb{N}}$.\textit{(*)}
+
+Entonces existe un $r\in{\mathbb{N}}$ tal que \textit{P(r)} es falso.
+
+Sea $A=\lbrace K\in{\mathbb{N}}:P(K)\mbox{ es falso }\rbrace$ luego $A\subseteq{\mathbb{N}} \ y \ A\neq{\varnothing}$, ya que $r\in{A}$.
+
+Por el principio del buen orden, existe $k_{0}\in{\mathbb{N}}\mbox{ tal que } \ k_{0}\le{k} \ \forall \ k\in{A}$.
+
+Observemos que $k_{0}>1$, pues por hipótesis \textit{P(1)} es verdadero, entonces $k_{0}-1\in{\mathbb{N}} \ y \ k_{0}-1<k_{0}\mbox{ luego }k_{0}-1\not\in{A}$.
+
+Entonces $P(k_{0}-1)$ es cierto,luego,por hipótesis, $P(k_{0})$ es verdadero.Contradicción, pues $k_{0}\in{A}$.
+
+Llegamos a una contradicción al suponer falso \textit{(*)}.
+  
 \section{Teorema Del Binomio De Newton.}
-$\forall a,b\in{\mathbb{R}}\land \forall{n\in{\mathbb{N}}}$ se tiene:
+$\mbox{Para cualesquiera }a,b\in{\mathbb{R}}\land \forall \ n\in{\mathbb{N}}$ se tiene:
 $(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
 
 \textbf{Demostración: Por inducción sobre n.}
 
-$P(0):(a+b)^0=1$ por otro lado $\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$
+$P(0):(a+b)^0=1$.
+
+Por otro lado, $\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$.
 
 $\therefore$ \textit{P(0)} es verdadero.
 
 Supongamos \textit{P(r)} verdadero, es decir $(a+b)^r=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k}$.
-Por demostrar \textit{P(r+1)}.
+Por demostrar \textit{P(r+1)} verdadero.
 
 $(a+b)^{k+1}=(a+b)^k \ (a+b)=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k} \ (a+b)$
 
