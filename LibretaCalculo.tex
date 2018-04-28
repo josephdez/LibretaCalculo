@@ -124,9 +124,27 @@ Por otro lado, $\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$.
 
 $\therefore$ \textit{P(0)} es verdadero.
 
-Supongamos \textit{P(r)} verdadero, es decir $(a+b)^r=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k}$.
-Por demostrar \textit{P(r+1)} verdadero.
+Supongamos \textit{P(n)} verdadero, es decir $(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$.
+Por demostrar \textit{P(n+1)} verdadero.
 
-$(a+b)^{k+1}=(a+b)^k \ (a+b)=\sum_{k=0}^r \binom{r}{k} a^kb^{r-k} \ (a+b)$
+$(a+b)^{n+1}=(a+b)^n \ (a+b)=(a+b) \sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
+
+$=a\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}+b\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
+
+$=\sum_{k=0}^n \binom{n}{k} a^{k+1}b^{n-k}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$
+
+$=\sum_{k=1}^{n+1} \binom{n}{k-1} a^kb^{n-k+1}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$
+
+$=\sum_{k=1}^n \binom{n}{k-1} a^kb^{k+1-r}+\sum_{k=1}^n \binom{n}{k} a^kb^{n-k+1}+\binom{n}{0}a^0b^{n+1-0}$
+
+$=a^{n+1}+\sum_{k=1}^n(\binom{n}{k-1} a^kb^{n-k+1}+\binom{n}{k} a^kb^{n-k+1})+b^{n+1}$
+
+$=a^{n+1}+\sum_{k=1}^n a^kb^{n-k+1}(\binom{n}{k-1}+\binom{n}{k})+b^{n+1}$
+
+$=a^{n+1}+\sum_{k=1}^n \binom{n+1}{k}a^kb^{n-k+1}+b^{n+1}$
+
+$=\sum_{k=0}^{n+1} \binom{n+1}{k}a^kb^{n-k+1}$
+
+\textit{Q.E.D}
 
 \end{document}
