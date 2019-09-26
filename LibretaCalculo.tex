@@ -1,69 +1,103 @@
-\documentclass{book}
-\usepackage[spanish]{babel}
+\documentclass[12pt]{book}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\usepackage[spanish]{babel}
 \usepackage{amsfonts}
-\usepackage{amsmath}
-\usepackage{amssymb}
+\usepackage{amsmath,amssymb}
 \usepackage{enumerate}
+
+\newcommand\R{{\mathbb R}}
+\newcommand\C{{\mathbb C}}
+\newcommand\Q{{\mathbb Q}}
+\newcommand\N{{\mathbb N}}
+\newcommand\Z{{\mathbb Z}}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{lema}[teo]{Lema}
+\newtheorem{defi}{Definición}[section]
+
 \setlength\parindent{0pt}
+
 \title{Cálculo Integral En Una Variable}
 \author{José Juan Hernández Cervantes}
 \date{Julio-Diciembre 2017}
 \begin{document}
 \maketitle
-\chapter{Propiedades de los Números Reales}
-\section{Axioma Del Supremo.}
-Todo subconjunto de $\mathbb{R}$ no vacío, acotado superiormente tiene supremo.
-
-\textbf{Definición: Supremo.}
-
-Sea $A \subseteq \mathbb{R} \ (A \neq \varnothing)$ un conjunto acotado superiormente.
-Diremos que $\bar{x}$ es el supremo de \textit{A} (y lo denotamos por $SupA$) si cumple:
+\tableofcontents
+\chapter{Propiedades de los Números Reales.}
+\section{Supremo.}
+\begin{defi}[Supremo de un conjunto]\rm
+Sea $A \subseteq \R$  no vacío acotado superiormente.
+Diremos que $\bar{x}$ es el supremo de \textit{A} (y lo denotamos por $Sup(A)$) si cumple:
 \begin{enumerate}[1.]
 \item $\bar{x}$  es cota superior de $A$.
-\item Si \textit{z} es cota superior de \textit{A}, ocurre $\bar{x}\le z$.
+\item Si \textit{z} también es cota superior de \textit{A}, ocurre $\bar{x}\le z$.
 \end{enumerate}
-\textbf{Teorema: Unicidad del supremo.}
+\end{defi}
 
-Si $\bar{x}$ es el supremo de $A$, $\bar{x}$ es único.
+\textbf{Axioma del supremo}
 
-\textbf{Demostración}
+Todo subconjunto no vacío de números reales acotado superiormente admite supremo.
 
-Supongamos $\bar{x}$ y $\bar{y}$ supremos de $A$. Entonces, por definición de supremo ocurre:
-$\bar{x}\le\bar{y}\land\bar{y}\le\bar{x}$
+\begin{teo}[Unicidad del supremo.]\rm
+Si existe $\bar{x}$ supremo de $A$, $\bar{x}$ es único.
+\end{teo}
 
-$\therefore \bar{x}=\bar{y}$
+Demostración:
 
-\textit{Q.E.D}
+Por definición de supremo, si $\bar{x}$ y $\bar{y}$ son supremos de $A$, entonces ocurre:
+$\bar{x}\le\bar{y}$ y $\bar{y}\le\bar{x}$
+
+Por tricotomía se tiene $\bar{x}=\bar{y}$. $\blacksquare$
+
+\begin{teo}[Propiedades del supremo]\rm
+Si $A\subseteq{\R}$ es no vacío y acotado superiormente:
+
+
+\begin{enumerate}
+    \item $\bar{x} \mbox{ es supremo de } A \mbox{ si dado } \epsilon >0 \mbox{ existe } a\in A \mbox{ tal que } \bar{x}-\epsilon < a$
+    \item $Sup(A \cup B)=max\{ Sup(A),Sup(B) \}$
+    \item Si $a+A:=\{a+x : x \in A \}$ entonces $Sup(a+A)=a+Sup(A)$
+\end{enumerate}
+\end{teo}
+
+Demostración:
+
+Sea $\bar{x}=Sup(A) \mbox{ entonces } x \le \bar{x} \  \forall{x\in A}$, luego $a+x \le a+\bar{x}$ con lo que $a+\bar{x}$ es una cota superior de $a+A$. Se sigue $Sup(a+A) \le a+\bar{x}$, ahora, si $z$ es cota superior de $a+A$ entonces $a+x \le z \ \forall{x \in A}$ consecuentemente $x \le z-a$ entonces $z-a$ es una cota superior de $A$, asi $\bar{x} \le z-a \Rightarrow a+\bar{x} \le z \Rightarrow a+\bar{x} \le Sup(a+A)$.Probando 3. La prueba de 1 y 2 se deja como buen ejercicio para el lector. $\blacksquare$
 
 \section{Propiedad Arquimedeana.}
 
-Para todo par de números $x,y\in \mathbb{R}\mbox{ con }x> 0 \ \exists \ n\in\mathbb{N}\mbox{ tal que }nx> y$.
+Para todo par de números $x,y\in \R$ con $x> 0$,existe $n\in\N$ tal que $nx> y$.
 
-\textbf{Demostración: por reducción a lo absurdo.}
+Demostración:
 
-Supongamos $\forall \ n\in\mathbb{N},nx\le{y}$.
+Procederemos por reducción a lo absurdo. Supongamos $\forall \ n\in\mathbb{N},nx\le{y}$.
+
 Si $y\le{0}$ entonces $x\le{0}$, contradicción con la hipótesis $x>0$.
+
 Si $y>0$, sea $A=\lbrace nx:n\in{\mathbb{N}}\rbrace$.
-Trivialmente $A\subseteq{\mathbb{R}}$ y $ A\neq \varnothing\mbox{ pues }x\in A$, además \textit{A} está acotado superiormente por \textit{y}.
+Es claro que $A\subseteq{\R}$ y $ A\neq \varnothing$ pues $x\in A$, además \textit{A} está acotado superiormente por \textit{y}.
 Invocando el axioma del supremo, existe $\bar{x}=SupA$.
+
 Como $x>0 \Rightarrow -x<0\Rightarrow \bar{x}-x<\bar{x}$.
 Con lo que $\bar{x}-x$ no es cota superior de \textit{A}.
-Entonces existe $a\inA$ tal que $\bar{x}-x<a$.
-Esto es, $\exists \ n\in{\mathbb{N}}\mbox{ tal que }\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
-Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo.
 
-$\therefore \ \exists \ n\in{\mathbb{N}}\mbox{ tal que }nx>y$ $\forall \  x>0,y\in{\mathbb{R}}$.
-
-\textit{Q.E.D}
+Entonces existe $a \in A$ tal que $\bar{x}-x \le a$.
+Es decir, existe $n\in\N$ tal que $\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
+Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo. $\blacksquare$
 
 \section{Principio Del Buen Orden.}
 
-Todo subconjunto no vacío de $\mathbb{N}$ tiene elemento mínimo.
-
-$\forall A\subseteq{\mathbb{R}}$, $ A\neq \varnothing$, $\exists \  a_0 :a_0 \le a$ $ \forall a\in{A}$.
-
+\begin{defi}[Elemento mínimo]\rm
+Sea $A\subseteq\R$ no vacío. Decimos que $x$ es el elemento mínimo de $A$ si ocurre:
+\begin{enumerate}[1.]
+\item $x\in{A}$
+\item $\forall \ y\in{A}$ , $x\le{y}$
+\end{enumerate}
+\end{defi}
+\begin{teo}[Principio del buen orden]\rm
+Todo subconjunto no vacío de $\N$ tiene elemento mínimo.
+\end{teo}
 \section{Principio De Inducción Matemática Fuerte.}
 
 Si $A=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con las siguientes propiedades:
@@ -73,32 +107,28 @@ Si $A=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con 
 \end{enumerate}
 Entonces \textit{P(j)} es verdadero $\forall j\in{\mathbb{N}}$
 
-\subsection{El principio de inducción matemática fuerte implica el principio de buen orden.}
+\section{Inducción implica Buen orden.}
 
-\textbf{Demostración: por reducción a lo absurdo.}
+Demostración:
 
-Supongamos que existe $A\subseteq \mathbb{N}$, $A\neq \varnothing$, tal que no existe $a_0\in A$ \textit{ con } $a_0\le{a} \ \forall \ a\in{A}$.
+Procederemos por reducción a lo absurdo. Supongamos que existe $A\subseteq \N$, no vacío tal que no tiene elemento mínimo.
 Sea $B=\lbrace n\in{\mathbb{N}}:n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall \ n\in{\mathbb{N}}$.
 Se sigue que $1\in{B}$ $(B\neq \varnothing)$.
 Supongamos $k\in{B}$, entonces \textit{1,2,...,k-1,k} $\notin{A}$.
 Luego $k+1\notin{A}$, de lo contrario \textit{k+1} sería el elemento más pequeño de \textit{A}.
 Por el Principio De Inducción Matemática Fuerte tenemos $B=\mathbb{N}\mbox{, como }A\subseteq{\mathbb{N}}=B\mbox{ ocurre }A=\varnothing$.
-Contradicción con la hipótesis.
+Contradicción con la hipótesis. $\blacksquare$
 
-$\therefore \ \forall \ A\subseteq{\mathbb{N}} \ y \ A\neq{\varnothing} \ \exists \ a_0:a_0\le{a} \ \forall \ a\in{A}$.
+\section{Buen orden implica Inducción.}
 
-\textit{Q.E.D}
+Demostración:
 
-\subsection{El principio de buen orden implica el principio de inducción matemática fuerte.}
-
-\textbf{Demostración: por reducción a lo absurdo.}
-
-Supongamos $P=\lbrace P(n)/n\in{\mathbb{N}}\rbrace$ es un conjunto de propiedades tales que:
+Procederemos por reducción a lo absurdo. Supongamos $P=\lbrace P(n):n\in{\N}\rbrace$ es un conjunto de propiedades tales que:
 \begin{enumerate}[1.]
 \item \textit{P(1)} es verdadero.
-\item Siempre que para un $K\in{\mathbb{N}},P(K)$ es verdadero, entonces \textit{P(K+1)} es verdadero.
+\item Siempre que para un $K\in{\N},P(K)$ es verdadero, entonces \textit{P(K+1)} es verdadero.
 \end{enumerate}
-Supongamos falso que \textit{P(n)} es verdadero $\forall$ $n\in{\mathbb{N}}$.\textit{(*)}
+Supongamos falso que \textit{P(n)} es verdadero $\forall$ $n\in{\mathbb{N}}$.
 
 Entonces existe un $r\in{\mathbb{N}}$ tal que \textit{P(r)} es falso.
 
@@ -108,23 +138,26 @@ Por el principio del buen orden, existe $k_{0}\in{\mathbb{N}}\mbox{ tal que } \ 
 
 Observemos que $k_{0}>1$, pues por hipótesis \textit{P(1)} es verdadero, entonces $k_{0}-1\in{\mathbb{N}} \ y \ k_{0}-1<k_{0}\mbox{ luego }k_{0}-1\not\in{A}$.
 
-Entonces $P(k_{0}-1)$ es cierto,luego,por hipótesis, $P(k_{0})$ es verdadero.Contradicción, pues $k_{0}\in{A}$.
+Entonces $P(k_{0}-1)$ es cierto,luego,por hipótesis, $P(k_{0})$ es verdadero.
 
-Llegamos a una contradicción al suponer falso \textit{(*)}.
-  
+Contradicción, pues $k_{0}\in{A}$. $\blacksquare$
+
 \section{Teorema Del Binomio De Newton.}
-$\mbox{Para cualesquiera }a,b\in{\mathbb{R}}\land \forall \ n\in{\mathbb{N}}$ se tiene:
-$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
+Para cualesquiera $a,b\in\R$ y para cualquier $\ n\in\N$ se tiene:
 
-\textbf{Demostración: Por inducción sobre n.}
+$$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
 
-$P(0):(a+b)^0=1$.
+Demostración: Por inducción sobre n.
 
-Por otro lado, $\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$.
+Vereficación del caso base:
 
-$\therefore$ \textit{P(0)} es verdadero.
+$(a+b)^0=1$.
 
-Supongamos \textit{P(n)} verdadero, es decir $(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$.
+Por otro lado, $$\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$$
+
+Con lo que \textit{P(0)} es verdadero.
+
+Supongamos \textit{P(n)} verdadero, es decir $$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
 Por demostrar \textit{P(n+1)} verdadero.
 
 $(a+b)^{n+1}=(a+b)^n \ (a+b)=(a+b) \sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
@@ -140,11 +173,208 @@ $=\sum_{k=1}^n \binom{n}{k-1} a^kb^{k+1-r}+\sum_{k=1}^n \binom{n}{k} a^kb^{n-k+1
 $=a^{n+1}+\sum_{k=1}^n(\binom{n}{k-1} a^kb^{n-k+1}+\binom{n}{k} a^kb^{n-k+1})+b^{n+1}$
 
 $=a^{n+1}+\sum_{k=1}^n a^kb^{n-k+1}(\binom{n}{k-1}+\binom{n}{k})+b^{n+1}$
-
 $=a^{n+1}+\sum_{k=1}^n \binom{n+1}{k}a^kb^{n-k+1}+b^{n+1}$
+$=\sum_{k=0}^{n+1} \binom{n+1}{k}a^kb^{n-k+1}$ $\blacksquare$
 
-$=\sum_{k=0}^{n+1} \binom{n+1}{k}a^kb^{n-k+1}$
+\chapter{Sucesiones de números reales.}
+\section{Límite y primeros resultados.}
+\begin{defi}[Sucesión]\rm
+Una sucesión de números reales es una función $f:\N \rightarrow \R$.
+\end{defi}
+En la practica se representa a $f$ como la lista de sus valores. Es decir, en vez de escribir $(f(1),f(2),\dots)$ escribimos $(a_{1},a_{2},\dots)$.
 
-\textit{Q.E.D}
+Es común adoptar el símbolo $(a_{j})$.
 
+Ejemplos:
+\begin{enumerate}
+\item $(j)=1,2,3,\dots$
+\item $(\frac{1}{j})=1,\frac{1}{2},\frac{1}{3}\dots$
+\item $((-1)^j)=-1,1,-1,\dots$
+\end{enumerate}
+\begin{defi}[Límite de una sucesión]\rm
+Decimos que $\lim\limits_{j\to\infty}(a_{j})=L$ si dado $\epsilon>0$ existe $J(\epsilon)\in\N$ tal que $\abs{a_{j}-L}<\epsilon$ $\forall{j \ge J(\epsilon)}$.
+
+En tal caso decimos que $(a_{j})$ converje a $L$ y escribimos $(a_{j})\rightarrow L$.
+\end{defi}
+
+\begin{teo}[Unicidad del límite]\rm
+Si $(a_{j})$ tiene límite, éste es único.
+\end{teo}
+Demostración:
+
+Procederemos por reducción a lo absurdo. Supongamos $L_1 \mbox{ y }L_2$ limites de $(a_j)$ con $L_1 \neq L_2$. Sin perder generalidad podemos suponer $L_1<L_2$. Entonces, por definición de límite, dado $\epsilon>0$ tenemos:
+
+$\abs{a_j-L_1}<\epsilon$ $\forall \ j\ge J_1(\epsilon)$
+
+$\abs{a_j-L_2}<\epsilon$ $\forall \ j\ge J_2(\epsilon)$
+
+Sean $J=max\{J_1(\epsilon),J_2(\epsilon)\}$, $h=L_2-L_1/2$, $I_1=(L_1-h,L_1+h)$ e $I_2=(L_2-h,L_2+h)$
+
+Entonces para $j \ge J$:
+
+$a_j \in I_1$ y $a_j \in I_2$ pero $I_1 \cap I_2 = \varnothing$. Llegamos a una contradicción al suponer $L_1 \neq L_2$, debe ser $L_1 = L_2$.
+$\blacksquare$
+\begin{teo}[Propiedades del límite de una sucesión]\rm\label{PropiedadesLimiteSucesion}
+Sean $(a_j)$ y $(b_j)$ sucsiones de números reales con límites $L \mbox{ y } M$ respectivamentes. Entonces:
+
+\begin{enumerate}[1)]
+    \item $(\lambda a_j+b_j)$ tiene límite $\lambda L+M$ $(\lambda \in \R)$
+    \item $(a_jb_j)$ tiene límite $LM$
+    \item Si además $b_j \neq 0$ $\forall \ j \ge 1$ y $M \neq 0$ :
+    
+    $(\frac{a_j}{b_j})$ tiene límite $\frac{L}{M}$
+\end{enumerate}
+\end{teo}
+Demostración:
+
+Se deja como buen ejercicio para el lector. $\blacksquare$
+\begin{defi}\rm
+Una sucesión de números reales $(a_j)$ se dice que es acotada si existe $M>0$ tal que $\abs{a_j} \le M \ \forall{j \in \N}$.
+\end{defi}
+\begin{teo}\rm
+Toda sucesión convergente es acotada.
+\end{teo}
+Demostración:
+
+Supongamos $L= \lim\limits_{j\to\infty}(a_{j})$ y sea $\epsilon=1$. Entonces existe $J(1) \in \N$ tal que $\abs{a_j-L} \le 1 \ \forall{j \ge J(1)}$. Luego $\abs{a_j} = \abs{a_j-L+L} \le \abs{a_j-L}+\abs{L} < 1+\abs{L}$.
+
+Sea $M=Sup(\{ \abs{a_1},\abs{a_2},\dots,\abs{a_{J(1)}},1+\abs{L} \})$. Entonces $\abs{a_j} \le M \ \forall{j \in \N}$. $\blacksquare$
+
+\section{Convergencia.}
+\begin{defi}[Sucesiones monótonas]\rm
+Si $(a_j)$ es una sucesión de números reales tal que $a_j \le a_{j+1} \ \forall \ j \ge 1$ decimos que la sucesión es no decreciente (creciente).
+
+Si en la definicion anterior se cambia la condición a $a_j \ge a_{j+1} \ \forall \ j \ge 1$, obtenemos la definición de sucesión monótona no creciente (decreciente).
+\end{defi}
+\begin{teo}[De convergencia monótona]\rm\label{ConvergenciaMonotona}
+Sea $(a_j)$ una sucesión de números reales monótona creciente acotada superiormente y $S=\{a_1,a_2,a_3, \dots \}$.
+
+Entonces $(a_j) \rightarrow Sup(S)$.
+\end{teo}
+Demostración:
+
+Sea $\bar{s}=Sup(S)$. Entonces, por definición de supremo, $a_j \le \bar{s} \ \forall \ j$. Luego para $\epsilon >0$ , $\bar{x}-\epsilon$ no es cota superior de $S$, con lo que existe $J(\epsilon) \in \N$ tal que $\bar{x}-\epsilon \le a_{J(\epsilon)}$. Asi pues, para $j \ge J(\epsilon)$ se tiene $a_j \in (\bar{s}-\epsilon,\bar{s}+\epsilon)$, es decir $\abs{a_j-\bar{s}} \le \epsilon$. $\blacksquare$
+
+\begin{teo}["Squeezing Theorem"]\rm\label{squeezing}
+Sean $(a_j) \mbox{ tal que } a_j \ge 0 \ \forall \ j$ y $(b_j) \mbox{ tal que } a_j \le b_j \ \forall j$ con $(b_j) \rightarrow 0$.
+Entonces $(a_j) \rightarrow 0$.
+\end{teo}
+Demostración:
+
+Como $0 \le a_j \le b_j$, ocurre $\abs{a_j-0} \le \abs{b_j-0} \mbox{ y como } (b_j) \rightarrow 0$, existe $J(\epsilon) \in \N$ tal que $\abs{b_j-0}<\epsilon \ \forall \ j \ge J(\epsilon)$, con lo que $\abs{a_j-0}<\epsilon$. $\blacksquare$
+\begin{teo}["Sandwich Theorem"]\rm
+Sean $(a_j),(b_j),(c_j)$ sucesiones de números reales tales que $b_j \le a_j \le c_j \ \forall j\ge 1$, con $(b_j),(c_j) \rightarrow L$. Entonces $(a_j) \rightarrow L$.
+\end{teo}
+Demostración:
+
+Como $b_j \le a_j \le c_j$, entonces $0 \le a_j-b_j \le c_j-b_j$.
+
+Sean $(d_j)=(a_j-b_j) \ge 0$ y $(e_j)=(c_j-b_j) \ge d_j$.
+
+Luego por el teorema (\ref{PropiedadesLimiteSucesion}) parte 1, $(e_j) \rightarrow 0$ (*). Y por el teorema (\ref{squeezing}) $(d_j) \rightarrow 0$ (**).
+
+Por (*) existe $J_1(\epsilon) \in \N \mbox{ tal que } \abs{d_j-0}<\frac{\epsilon}{2}$
+
+Por (**) existe $J_2(\epsilon) \in \N \mbox{ tal que } \abs{b_j-L}<\frac{\epsilon}{2}$
+
+Finalmente, si $j \ge max\{J_1(\epsilon),J_2(\epsilon)\}$, se tiene  $\abs{a_j-L}=\abs{a_j-b_j+b_j-L} \le \abs{dj-0}+\abs{b_j-L} \le \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$. $\blacksquare$
+
+\begin{teo}\rm
+Sea $(a_j)$ una sucesión de números reales tal que $a_j=f(b_j)$ con $f$ una función continua y $(b_j) \rightarrow L$. Entonces $(a_j) \rightarrow f(L)$.
+\end{teo}
+Demostración:
+
+Como $f \mbox{ continua, dado }\epsilon>0 \mbox{ existe } \delta(\epsilon)>0 \mbox{ tal que } \abs{f(a)-f(b)}<\epsilon$ para $\abs{a-b}<\delta(\epsilon)$.
+
+Como $(b_j) \rightarrow L$, $\abs{b_j-L}<\delta(\epsilon) \  \forall j \ge J(\epsilon)$
+
+Combinando lo anterior se obtiene $\abs{f(b_j)-f(L)}=\abs{a_j-f(L)}<\epsilon \ \forall j \ge J(\epsilon)$.$\blacksquare$
+
+\section{Teorema de Bolzano-Weierstrass.}
+\begin{defi}[Subsucesión]\rm
+Sea $(a_j)$ una sucesión de números reales y $j_1 \le j_2 \le \dots j_k \le \dots$ una sucesión de números naturales estrictamente creciente. Entonces la sucesión $(\Tilde{a_{j_k}})$ es llamada una subsucesión de $(a_j)$.
+\end{defi}
+\begin{teo}\rm
+Si $(a_j) \rightarrow L$, cualquier subsucesión $(\Tilde{a_{j_k}}) \rightarrow L$
+\end{teo}
+Demostración:
+
+Como la sucesión converge, dodo $\epsilon >0 \mbox{ existe } J(\epsilon) \in \N$ tal que si $j \ge J(\epsilon)$ entonces $\abs{a_j-L} < \epsilon$.
+
+Como $j_1 \le j_2 \le \dots j_k \le \dots$ es una sucesión creciente de números naturales, se verifica sin dificultad por inducción que $j_k \ge k$, con lo que si $j \ge J(\epsilon)$ entonces $j_k \ge k \ge J(\epsilon) \Rightarrow \abs{a_{j_k}-L}<\epsilon$. $\blacksquare$
+\begin{defi}[Pico]\rm
+Dada una sucesión $(a_j)$ de números reales, decimos que $a_k$ es un pico de la sucesión si $a_k \ge a_j \ \forall{j \ge k}$.
+\end{defi}
+\begin{lema}\rm
+Toda sucesión $(a_j)$ de números reales admite una subsucesión monótona.
+\end{lema}
+Demostración:
+
+Supongamos que $(a_j)$ tiene una cantidad infinita de picos. Entonces la subsucesión correspondiente a los picos es una sucesión monótona decreciente.
+
+Supongamos ahora que $(a_j)$ tiene una cantidad finita de picos. Sea $K$ el último pico y $k_1=K+1$. Luego $k_1$ no es un pico, lo que implica la existencia de un $k_2>k_1 \mbox{ con } a_{k_2}>a_{k_1}$. Nuevamente $k_2>K$ no es pico lo que implica la existencia de un $k_3>k_2 \mbox{ con } a_{k_3}>a_{k_1}$.Repitir este proceso conduce a una subsucesión infinita monótona creciente. $\blacksquare$
+\begin{teo}[Bolzano-Weierstrass]\rm\label{BolzanoWe}
+Toda sucesión de numeros reales acotada admite una subsucesión convergente.
+\end{teo}
+Demostración:
+
+Por el lema anterior, dada una sucesión de números reales acotada, ésta admite una subsucesión monótona igualmente acotada y por el teorema (\ref{ConvergenciaMonotona}), esta subsucesión converge. $\blacksquare$
+
+\section{Criterio de Cauchy.}
+\begin{defi}[Sucesión de Cauchy]\rm
+Sea $(a_j)$ una sucesión de números reales. Decimos que la sucesión es de Cauchy si para todo $\epsilon>0$ existe $J(\epsilon) \in \N \mbox{ tal que } \abs{a_j-a_k}< \epsilon \ \forall \ j,k \ge J(\epsilon)$. 
+\end{defi}
+
+\begin{lema}\rm
+Toda sucesión de Cauchy es acotada.
+\end{lema}
+Demostración:
+
+Sea $(a_j)$ una sucesión de Cauchy y $\epsilon=1$. Entonces si $j \ge J(1)$ entonces $\abs{a_j-a_{J(1)}}<1$. Luego para $j \ge J(1)$ se tiene $\abs{a_j} \le \abs{a_{J(1)}}+1$.
+
+Sea $M=Sup(\{ \abs{a_1},\abs{a_2}, \dots , \abs{a_{J(1)}}+1 \})$. Se sigue $\abs{a_j} \le M \ \forall{j \in \N}$. $\blacksquare$
+\begin{teo}[Criterio de convergencia de Cauchy]\rm
+Una sucesión de números reales $(a_j)$ es convergente si y sólo si es de Cauchy.
+\end{teo}
+Demostración:
+
+Veamos que es una condición necesaria. Es decir, supongamos $(a_j) \rightarrow L$ y verifiquemos $(a_j)$ de Cauchy.
+
+Como $(a_j) \rightarrow L$, para $\epsilon >0 \mbox{ existe } J(\epsilon) \in N \mbox{ tal que } \abs{a_j-L} < \frac{\epsilon}{2}$. Con lo que si $j,k \ge J(\epsilon)$ se tiene :
+
+$\abs{a_j-a_k}=\abs{(a_j-L)+(L-a_k)} \le \abs{a_j-L}+\abs{a_k-L} < \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$.
+
+Veamos ahora que es una condición suficiente. Es decir, supongamos $(a_j)$ de Cauchy y verifiquemos $(a_j)$ convergente.
+
+Como $(a_j)$ de Cauchy, por el lema anterior $(a_j)$ es acotada, y por el teorema \ref{BolzanoWe} existe $(\Tilde{a_{j_k}})$ una subsucesión convergente, digamos $(\Tilde{a_{j_k}}) \rightarrow L$. Mostraremos $(a_j) \rightarrow L$.
+
+Como $(a_j)$ de Cauchy, dado $\epsilon>0 \mbox{ existe } J=J(\frac{\epsilon}{2}) \in \N \mbox{ tal que si } j,k \ge J$ entonces $\abs{a_j-a_k}<\frac{\epsilon}{2}$.
+
+Luego, como $(\Tilde{a_{j_k}}) \rightarrow L$, existe $K \ge J$ perteneciente al conjunto $\{ a_1,a_2,\dots \}$ tal que $\abs{a_k-L}<\frac{\epsilon}{2}$.
+
+Finalmente, por la desigualdad triangular $$\abs{a_j-L}=\abs{a_j-a_k+a_k-L} \le \abs{a_j-a_k}+\abs{a_k-L} <\frac{\epsilon}{2} + \frac{\epsilon}{2} =\epsilon $$
+$\blacksquare$
+
+\clearpage
+La idea de una sucesión de números reales se puede extender hacia sucesiones de funciones. En el siguiente capítulo se considerarán únicamente funciones continuas de variable real.
+
+Al conjunto de funciones continuas de $[a,b] \rightarrow \R$ se le denota por $C([a,b],\R)$.
+\chapter{Sucesiones de funciones continuas.}
+\begin{defi}\rm
+Una sucesione de funciones continuas es una aplicación $S:\N \rightarrow C([a,b],\R)$. En la práctica se denota por $(f_n)$.
+\end{defi}
+\section{Convergencia puntual.}
+\begin{defi}\rm
+Dado $x \in I=[a,b]$, se dice que la sucesión de funciones $(f_n)$ converge puntualmente en $x$ si la sucesión de números reales $(f_n(x))$ es convergente.
+
+Al conjunto $C$ de todos los puntos $x \in I$ en los que la sucesión de funciones $(f_n)$ converge puntualmente se le llama \textbf{campo de convergencia puntual}. Simbólicamente: $$C=\{ x \in I : (f_n(x))\mbox{  }converge \}$$
+
+Bajo el supuesto $C \neq \varnothing$, la función $f:C \rightarrow R$ definida por $$f(x)= \lim\limits_{n\to\infty}(f_n)$$ es llamada \textbf{función límite puntual} de la sucesión $(f_n)$.
+\end{defi}
+
+Para entender la definición de convergencia puntual es importante diferenciar entre la sucesión de funciones $(f_n)$ con la sucesión de números reales $(f_n(x))$. Recuerde que en una sucesión la variable siempre es $n \in \N$ y nunca es $x \in I$. Así la sucesión $(f_n(x))$ es la aplicación que a cada número natural $n$ le asocia el número real $f_n(x)$ donde \textbf{x está fijo}.
+\section{Convergencia uniforme.}
+\begin{defi}\rm
+Sea $J$ un intervalo no vacío contenido en el campo de convergencia puntual de la sucesión $(f_n)$ y sea $f$ su función límite puntual. Se dice que la sucesión de funciones $(f_n)$ converge uniformemente a $f$ en $J$ si dado $\epsilon>0 \mbox{ existe } N(\epsilon) \in \N$ tal que $\abs{f_n(x)-f(x)}<\epsilon \ \forall{n \ge N(\epsilon)}$. 
+\end{defi}
 \end{document}
