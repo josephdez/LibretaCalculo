@@ -4,23 +4,28 @@
 \usepackage{amsfonts}
 \usepackage{amsmath,amssymb}
 \usepackage{enumerate}
-
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{cancel}
+\graphicspath{ {./images/} }
 \newcommand\R{{\mathbb R}}
 \newcommand\C{{\mathbb C}}
 \newcommand\Q{{\mathbb Q}}
 \newcommand\N{{\mathbb N}}
 \newcommand\Z{{\mathbb Z}}
+\newcommand\sii{{\Leftrightarrow}}
+\newcommand{\fullref}[1]{\ref{#1} de la página \pageref{#1}}
 \providecommand{\abs}[1]{\lvert#1\rvert}
-
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \newtheorem{teo}{Teorema}[section]
-\newtheorem{lema}[teo]{Lema}
 \newtheorem{defi}{Definición}[section]
-
+\newtheorem{ejem}{Ejemplo}[section]
+\newtheorem{lema}{Lema}[section]
+\newtheorem{coro}{Corolario}[section]
 \setlength\parindent{0pt}
-
 \title{Cálculo Integral En Una Variable}
 \author{José Juan Hernández Cervantes}
-\date{Julio-Diciembre 2017}
+\date{2019}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -28,45 +33,40 @@
 \section{Supremo.}
 \begin{defi}[Supremo de un conjunto]\rm
 Sea $A \subseteq \R$  no vacío acotado superiormente.
-Diremos que $\bar{x}$ es el supremo de \textit{A} (y lo denotamos por $Sup(A)$) si cumple:
-\begin{enumerate}[1.]
-\item $\bar{x}$  es cota superior de $A$.
-\item Si \textit{z} también es cota superior de \textit{A}, ocurre $\bar{x}\le z$.
+Diremos que $\bar{x}$ es el supremo de $A$ (y lo denotamos por $Sup(A)$) si cumple:
+\begin{enumerate}
+\item $\bar{x}$ es cota superior de $A$.
+\item Si $z$ también es cota superior de $A$, ocurre $\bar{x} \le z$.
 \end{enumerate}
 \end{defi}
-
+\begin{defi}[Ínfimo de un conjunto]\rm
+Sea $A \subseteq \R$  no vacío acotado inferiormente.
+Diremos que $\check{x}$ es el ínfimo de $A$ (y lo denotamos por $Inf(A)$) si cumple:
+\begin{enumerate}
+\item $\check{x}$ es cota inferior de $A$.
+\item Si $z$ también es cota inferior de $A$, ocurre $z \le \check{x}$.
+\end{enumerate}
+\end{defi}
 \textbf{Axioma del supremo}
 
 Todo subconjunto no vacío de números reales acotado superiormente admite supremo.
-
-\begin{teo}[Unicidad del supremo.]\rm
+\begin{teo}[Unicidad del supremo]\rm
 Si existe $\bar{x}$ supremo de $A$, $\bar{x}$ es único.
 \end{teo}
 
 Demostración:
 
 Por definición de supremo, si $\bar{x}$ y $\bar{y}$ son supremos de $A$, entonces ocurre:
-$\bar{x}\le\bar{y}$ y $\bar{y}\le\bar{x}$
+$\bar{x}\le\bar{y}$ y $\bar{y}\le\bar{x}$.Por tricotomía, $\bar{x}=\bar{y}$. $\blacksquare$
+\begin{coro}\rm
+Sea $A\subseteq{\R}$ no vacío y acotado superiormente.
 
-Por tricotomía se tiene $\bar{x}=\bar{y}$. $\blacksquare$
-
-\begin{teo}[Propiedades del supremo]\rm
-Si $A\subseteq{\R}$ es no vacío y acotado superiormente:
-
-
-\begin{enumerate}
-    \item $\bar{x} \mbox{ es supremo de } A \mbox{ si dado } \epsilon >0 \mbox{ existe } a\in A \mbox{ tal que } \bar{x}-\epsilon < a$
-    \item $Sup(A \cup B)=max\{ Sup(A),Sup(B) \}$
-    \item Si $a+A:=\{a+x : x \in A \}$ entonces $Sup(a+A)=a+Sup(A)$
-\end{enumerate}
-\end{teo}
-
+Defina $a+A:=\{a+x : x \in A \}$. Entonces $Sup(a+A)=a+Sup(A)$
+\end{coro}
 Demostración:
 
-Sea $\bar{x}=Sup(A) \mbox{ entonces } x \le \bar{x} \  \forall{x\in A}$, luego $a+x \le a+\bar{x}$ con lo que $a+\bar{x}$ es una cota superior de $a+A$. Se sigue $Sup(a+A) \le a+\bar{x}$, ahora, si $z$ es cota superior de $a+A$ entonces $a+x \le z \ \forall{x \in A}$ consecuentemente $x \le z-a$ entonces $z-a$ es una cota superior de $A$, asi $\bar{x} \le z-a \Rightarrow a+\bar{x} \le z \Rightarrow a+\bar{x} \le Sup(a+A)$.Probando 3. La prueba de 1 y 2 se deja como buen ejercicio para el lector. $\blacksquare$
-
+Sea $\bar{x}=Sup(A) \mbox{ entonces } x \le \bar{x} \  \forall{x\in A}$, luego $a+x \le a+\bar{x}$ con lo que $a+\bar{x}$ es una cota superior de $a+A$. Se sigue $Sup(a+A) \le a+\bar{x}$. Ahora, si $z$ es cota superior de $a+A$ entonces $a+x \le z \ \forall{x \in A}$ consecuentemente $x \le z-a$ entonces $z-a$ es una cota superior de $A$, asi $\bar{x} \le z-a \Rightarrow a+\bar{x} \le z \Rightarrow a+\bar{x} \le Sup(a+A)$. El resultado se obtiene combinando las desigualdades obtenidas. $\blacksquare$
 \section{Propiedad Arquimedeana.}
-
 Para todo par de números $x,y\in \R$ con $x> 0$,existe $n\in\N$ tal que $nx> y$.
 
 Demostración:
@@ -75,128 +75,115 @@ Procederemos por reducción a lo absurdo. Supongamos $\forall \ n\in\mathbb{N},n
 
 Si $y\le{0}$ entonces $x\le{0}$, contradicción con la hipótesis $x>0$.
 
-Si $y>0$, sea $A=\lbrace nx:n\in{\mathbb{N}}\rbrace$.
-Es claro que $A\subseteq{\R}$ y $ A\neq \varnothing$ pues $x\in A$, además \textit{A} está acotado superiormente por \textit{y}.
-Invocando el axioma del supremo, existe $\bar{x}=SupA$.
-
+Si $y>0$, sea $A=\lbrace nx:n\in \N \rbrace$.
+Es claro que $A\subseteq{\R}$ y es no vacío, además $A$ está acotado superiormente por $y$.
+Invocando el axioma del supremo, existe $\bar{x}=Sup(A)$.
 Como $x>0 \Rightarrow -x<0\Rightarrow \bar{x}-x<\bar{x}$.
-Con lo que $\bar{x}-x$ no es cota superior de \textit{A}.
-
+Con lo que $\bar{x}-x$ no es cota superior de $A$.
 Entonces existe $a \in A$ tal que $\bar{x}-x \le a$.
-Es decir, existe $n\in\N$ tal que $\bar{x}-x<xn=a$. Equivalentemente $\bar{x}<(n+1)x$.
+Es decir, existe $n\in\N$ tal que $\bar{x}-x<xn$. Equivalentemente $\bar{x}<(n+1)x$.
 Como $(n+1)x\in{A}$, llegamos a una contradicción con la definicion de supremo. $\blacksquare$
-
-\section{Principio Del Buen Orden.}
-
+\section{Principio del Buen orden.}
 \begin{defi}[Elemento mínimo]\rm
 Sea $A\subseteq\R$ no vacío. Decimos que $x$ es el elemento mínimo de $A$ si ocurre:
-\begin{enumerate}[1.]
-\item $x\in{A}$
-\item $\forall \ y\in{A}$ , $x\le{y}$
+\begin{enumerate}
+    \item $x\in{A}$
+    \item $\forall \ y\in{A}$ , $x\le{y}$
 \end{enumerate}
 \end{defi}
-\begin{teo}[Principio del buen orden]\rm
+\textbf{Principio del buen orden}
+
 Todo subconjunto no vacío de $\N$ tiene elemento mínimo.
-\end{teo}
-\section{Principio De Inducción Matemática Fuerte.}
-
-Si $A=\lbrace P(j):j\in{\mathbb{N}}\rbrace$ es una colección de enunciados con las siguientes propiedades:
-\begin{enumerate}[1.]
-\item \textit{P(1)} es verdadero.
-\item \textit{P(n+1)} es verdadero siempre que \textit{P(n),P(n-1),...,P(2),P(1)} sean verdaderos.
+\section{Principio de Inducción matemática.}
+Si $A=\lbrace P(j):j\in \N \rbrace$ es una colección de enunciados con las siguientes propiedades:
+\begin{enumerate}
+    \item $P(1)$ es verdadero.
+    \item $P(n+1)$ es verdadero siempre que $P(n),P(n-1),...,P(2),P(1)$ sean verdaderos.
 \end{enumerate}
-Entonces \textit{P(j)} es verdadero $\forall j\in{\mathbb{N}}$
-
-\section{Inducción implica Buen orden.}
-
+Entonces $P(j)$ es verdadero $\forall j\in \N$
+\section{Inducción implica buen orden.}
 Demostración:
 
 Procederemos por reducción a lo absurdo. Supongamos que existe $A\subseteq \N$, no vacío tal que no tiene elemento mínimo.
-Sea $B=\lbrace n\in{\mathbb{N}}:n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall \ n\in{\mathbb{N}}$.
-Se sigue que $1\in{B}$ $(B\neq \varnothing)$.
-Supongamos $k\in{B}$, entonces \textit{1,2,...,k-1,k} $\notin{A}$.
-Luego $k+1\notin{A}$, de lo contrario \textit{k+1} sería el elemento más pequeño de \textit{A}.
-Por el Principio De Inducción Matemática Fuerte tenemos $B=\mathbb{N}\mbox{, como }A\subseteq{\mathbb{N}}=B\mbox{ ocurre }A=\varnothing$.
-Contradicción con la hipótesis. $\blacksquare$
-
-\section{Buen orden implica Inducción.}
-
+Sea $B=\lbrace n\in \N :n\notin{A} \rbrace$. Entonces $1\notin{A}$, pues $ 1\le{n}$ $\forall \ n\in \N$. Se sigue que $1\in{B}$ $(B\neq \varnothing)$. Supongamos $k\in{B}$, entonces $1,2,...,k-1,k \notin{A}$.
+Luego $k+1\notin{A}$, de lo contrario $k+1$ sería el elemento más pequeño de \textit{A}. Por el principio de inducción matemática se tiene $B=\N \mbox{, como }A\subseteq{\mathbb{N}}=B\mbox{ ocurre }A=\varnothing$. Contradicción con la hipótesis. $\blacksquare$
+\section{Buen orden implica inducción.}
 Demostración:
 
 Procederemos por reducción a lo absurdo. Supongamos $P=\lbrace P(n):n\in{\N}\rbrace$ es un conjunto de propiedades tales que:
-\begin{enumerate}[1.]
-\item \textit{P(1)} es verdadero.
-\item Siempre que para un $K\in{\N},P(K)$ es verdadero, entonces \textit{P(K+1)} es verdadero.
+\begin{enumerate}
+\item $P(1)$ es verdadero.
+\item Siempre que para un $k\in{\N},P(k)$ es verdadero, entonces $P(k+1)$ es verdadero.
 \end{enumerate}
-Supongamos falso que \textit{P(n)} es verdadero $\forall$ $n\in{\mathbb{N}}$.
+Supongamos falso que $P(n)$ es verdadero $\forall{n \in \N}$. Entonces existe un $r\in \N$ tal que $P(r)$ es falso.
 
-Entonces existe un $r\in{\mathbb{N}}$ tal que \textit{P(r)} es falso.
+Sea $A=\lbrace k \in \N:P(k)\mbox{ es falso }\rbrace$ luego $A\subseteq \N$ y $A\neq{\varnothing}$, ya que $r\in{A}$.
 
-Sea $A=\lbrace K\in{\mathbb{N}}:P(K)\mbox{ es falso }\rbrace$ luego $A\subseteq{\mathbb{N}} \ y \ A\neq{\varnothing}$, ya que $r\in{A}$.
+Por el principio del buen orden, existe $k_{0}\in \N\mbox{ tal que } \ k_{0}\le{k} \ \forall \ k\in{A}$.
 
-Por el principio del buen orden, existe $k_{0}\in{\mathbb{N}}\mbox{ tal que } \ k_{0}\le{k} \ \forall \ k\in{A}$.
-
-Observemos que $k_{0}>1$, pues por hipótesis \textit{P(1)} es verdadero, entonces $k_{0}-1\in{\mathbb{N}} \ y \ k_{0}-1<k_{0}\mbox{ luego }k_{0}-1\not\in{A}$.
+Observemos que $k_{0}>1$, pues por hipótesis $P(1)$ es verdadero, entonces $k_{0}-1\in \N \ y \ k_{0}-1<k_{0}\mbox{ luego }k_{0}-1\not\in{A}$.
 
 Entonces $P(k_{0}-1)$ es cierto,luego,por hipótesis, $P(k_{0})$ es verdadero.
 
 Contradicción, pues $k_{0}\in{A}$. $\blacksquare$
+\section{Teorema del Binomio de Newton.}
+Para cualesquiera $a,b\in\R$ y para cualquier $\ n\in\N$ se tiene:$$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
 
-\section{Teorema Del Binomio De Newton.}
-Para cualesquiera $a,b\in\R$ y para cualquier $\ n\in\N$ se tiene:
-
-$$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
-
-Demostración: Por inducción sobre n.
+Demostración: Por inducción sobre n
 
 Vereficación del caso base:
 
-$(a+b)^0=1$.
+$(a+b)^0=1$. Por otro lado, $$\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$$
 
-Por otro lado, $$\sum_{k=0}^0 \binom{0}{k} a^kb^{0-k}=\binom{0}{0}a^0b^0=1$$
+Con lo que $P(0)$ es verdadero.
 
-Con lo que \textit{P(0)} es verdadero.
+Supongamos $P(n)$ verdadero, es decir $$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
+Por demostrar $P(n+1)$ verdadero.
+$$(a+b)^{n+1}=(a+b)^n \ (a+b)=(a+b) \sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
 
-Supongamos \textit{P(n)} verdadero, es decir $$(a+b)^n=\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
-Por demostrar \textit{P(n+1)} verdadero.
+$$=a\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}+b\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$$
 
-$(a+b)^{n+1}=(a+b)^n \ (a+b)=(a+b) \sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
+$$=\sum_{k=0}^n \binom{n}{k} a^{k+1}b^{n-k}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$$
 
-$=a\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}+b\sum_{k=0}^n \binom{n}{k} a^kb^{n-k}$
+$$=\sum_{k=1}^{n+1} \binom{n}{k-1} a^kb^{n-k+1}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$$
 
-$=\sum_{k=0}^n \binom{n}{k} a^{k+1}b^{n-k}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$
+$$=\sum_{k=1}^n \binom{n}{k-1} a^kb^{k+1-r}+\sum_{k=1}^n \binom{n}{k} a^kb^{n-k+1}+\binom{n}{0}a^0b^{n+1-0}$$
 
-$=\sum_{k=1}^{n+1} \binom{n}{k-1} a^kb^{n-k+1}+\sum_{k=0}^n \binom{n}{k} a^kb^{n-k+1}$
+$$=a^{n+1}+\sum_{k=1}^n(\binom{n}{k-1} a^kb^{n-k+1}+\binom{n}{k} a^kb^{n-k+1})+b^{n+1}$$
 
-$=\sum_{k=1}^n \binom{n}{k-1} a^kb^{k+1-r}+\sum_{k=1}^n \binom{n}{k} a^kb^{n-k+1}+\binom{n}{0}a^0b^{n+1-0}$
-
-$=a^{n+1}+\sum_{k=1}^n(\binom{n}{k-1} a^kb^{n-k+1}+\binom{n}{k} a^kb^{n-k+1})+b^{n+1}$
-
-$=a^{n+1}+\sum_{k=1}^n a^kb^{n-k+1}(\binom{n}{k-1}+\binom{n}{k})+b^{n+1}$
-$=a^{n+1}+\sum_{k=1}^n \binom{n+1}{k}a^kb^{n-k+1}+b^{n+1}$
-$=\sum_{k=0}^{n+1} \binom{n+1}{k}a^kb^{n-k+1}$ $\blacksquare$
-
+$$=a^{n+1}+\sum_{k=1}^n a^kb^{n-k+1}(\binom{n}{k-1}+\binom{n}{k})+b^{n+1}$$
+$$=a^{n+1}+\sum_{k=1}^n \binom{n+1}{k}a^kb^{n-k+1}+b^{n+1}$$
+$$=\sum_{k=0}^{n+1} \binom{n+1}{k}a^kb^{n-k+1}$$ $\blacksquare$
+\clearpage
+\section{Ejercicios.}
+\begin{enumerate}
+    \item Sea $A \subseteq \R$ no vacío tal que existe $Sup(A)$. Defina $-A:=\{-x : x\in A \}$. Demuestre que existe $Inf(-A)$ y que $Inf(-A)=-Sup(A)$.
+    \item Demuestre $Sup(A \cup B)=\max \{ Sup(A),Sup(B) \}$
+    \item Demuestre $\bar{x}$ supremo de  $A$ si dado $\epsilon >0 \mbox{ existe } a\in A \mbox{ tal que } \bar{x}-\epsilon < a$.
+    \item Demuestre que la suma de los ángulos interiores de cualquier polígono convexo es igual al número de lados del polígono disminuido en 2, multiplicado por $\pi$. \textit{Hint: Use inducción. Recuerde que un polígono es convexo si todos sus ángulos son menores que $\pi$.}
+    \item Suponga $0 \le a < \frac{1}{n} \ \forall{n \in \N}$. Demuestre $a=0$.
+    \item (Densidad de $\Q$ en $\R$) Demuestre que si $x,y \in \R$ son tales que $x<y$ entonces existe $q \in \Q$ tal que $x<q<y$. \textit{Hint: Utilice la propiedad arquimedeana.}
+\end{enumerate}
 \chapter{Sucesiones de números reales.}
-\section{Límite y primeros resultados.}
-\begin{defi}[Sucesión]\rm
+\section{Definiciones y primeros resultados.}
+\begin{defi}\rm
 Una sucesión de números reales es una función $f:\N \rightarrow \R$.
 \end{defi}
 En la practica se representa a $f$ como la lista de sus valores. Es decir, en vez de escribir $(f(1),f(2),\dots)$ escribimos $(a_{1},a_{2},\dots)$.
 
-Es común adoptar el símbolo $(a_{j})$.
-
-Ejemplos:
-\begin{enumerate}
-\item $(j)=1,2,3,\dots$
-\item $(\frac{1}{j})=1,\frac{1}{2},\frac{1}{3}\dots$
-\item $((-1)^j)=-1,1,-1,\dots$
-\end{enumerate}
-\begin{defi}[Límite de una sucesión]\rm
-Decimos que $\lim\limits_{j\to\infty}(a_{j})=L$ si dado $\epsilon>0$ existe $J(\epsilon)\in\N$ tal que $\abs{a_{j}-L}<\epsilon$ $\forall{j \ge J(\epsilon)}$.
-
-En tal caso decimos que $(a_{j})$ converje a $L$ y escribimos $(a_{j})\rightarrow L$.
+Es común adoptar el símbolo $(a_{j})$ donde $a_j$ es llamado término general de la sucesión.
+\begin{defi}[Progresión aritmética]\rm
+Una progresión aritmética es una sucesión de números reales $(a_j)$ tales que la diferencia de cualquier par de términos consecutivos de la sucesión es una constante $d$. Dicha cantidad es llamada diferencia de la progresión. Se puede obtener el valor de un elemento arbitrario de la sucesion $a_j$ mediante la expresión $a_j=a_1+(n-1)d$.
 \end{defi}
+\begin{defi}[Progresión geométrica]\label{ProgresionGeo}\rm
+Una progresión geométrica es una sucesión de números reales $(a_j)$ en la que el elemento siguiente se obtiene multiplicando el elemento anterior por una constante $r$ denominada razón. Se puede obtener el valor de un elemento arbitrario de la sucesion $a_j$ mediante la expresión $a_j=a_1r^{j-1}$.
+Para obtener la razón de una progresión geométrica se divide un término cualquiera entre el término anterior, es decir, $r=\frac{a_j}{a_{j-1}}$.
+\end{defi}
+\begin{defi}[Límite de una sucesión]\rm\label{LimiteSucesion}
+Decimos que la sucesión de números reales $(a_j)$  tiene límite $L$ y escribimos $\lim\limits_{j\to\infty}(a_{j})=L$ si dado $\epsilon>0$ existe $J(\epsilon)\in\N$ tal que $\abs{a_{j}-L}<\epsilon$ $\forall{j \ge J(\epsilon)}$.
 
+En tal caso decimos que $(a_{j})$ converje a $L$ y lo denotamos $(a_{j})\rightarrow L$.
+\end{defi}
 \begin{teo}[Unicidad del límite]\rm
 Si $(a_{j})$ tiene límite, éste es único.
 \end{teo}
@@ -208,21 +195,17 @@ $\abs{a_j-L_1}<\epsilon$ $\forall \ j\ge J_1(\epsilon)$
 
 $\abs{a_j-L_2}<\epsilon$ $\forall \ j\ge J_2(\epsilon)$
 
-Sean $J=max\{J_1(\epsilon),J_2(\epsilon)\}$, $h=L_2-L_1/2$, $I_1=(L_1-h,L_1+h)$ e $I_2=(L_2-h,L_2+h)$
+Sean $J=\max\{J_1(\epsilon),J_2(\epsilon)\}$, $h=(L_2-L_1)/2$, $I_1=(L_1-h,L_1+h)$ e $I_2=(L_2-h,L_2+h)$
 
 Entonces para $j \ge J$:
 
-$a_j \in I_1$ y $a_j \in I_2$ pero $I_1 \cap I_2 = \varnothing$. Llegamos a una contradicción al suponer $L_1 \neq L_2$, debe ser $L_1 = L_2$.
-$\blacksquare$
+$a_j \in I_1$ y $a_j \in I_2$ pero $I_1 \cap I_2 = \varnothing$. Llegamos a una contradicción al suponer $L_1 \neq L_2$, debe ser $L_1 = L_2$. $\blacksquare$
 \begin{teo}[Propiedades del límite de una sucesión]\rm\label{PropiedadesLimiteSucesion}
-Sean $(a_j)$ y $(b_j)$ sucsiones de números reales con límites $L \mbox{ y } M$ respectivamentes. Entonces:
-
-\begin{enumerate}[1)]
-    \item $(\lambda a_j+b_j)$ tiene límite $\lambda L+M$ $(\lambda \in \R)$
+Sean $(a_j)$ y $(b_j)$ sucsiones de números reales con límites $L \mbox{ y } M$ respectivamentes y sea $\lambda \in \R$. Entonces:
+\begin{enumerate}
+    \item $(\lambda a_j+b_j)$ tiene límite $\lambda L+M$ 
     \item $(a_jb_j)$ tiene límite $LM$
-    \item Si además $b_j \neq 0$ $\forall \ j \ge 1$ y $M \neq 0$ :
-    
-    $(\frac{a_j}{b_j})$ tiene límite $\frac{L}{M}$
+    \item Si además $b_j \neq 0$ $\forall \ j \ge 1$ y $M \neq 0$, $(\frac{a_j}{b_j})$ tiene límite $\frac{L}{M}$
 \end{enumerate}
 \end{teo}
 Demostración:
@@ -239,25 +222,23 @@ Demostración:
 Supongamos $L= \lim\limits_{j\to\infty}(a_{j})$ y sea $\epsilon=1$. Entonces existe $J(1) \in \N$ tal que $\abs{a_j-L} \le 1 \ \forall{j \ge J(1)}$. Luego $\abs{a_j} = \abs{a_j-L+L} \le \abs{a_j-L}+\abs{L} < 1+\abs{L}$.
 
 Sea $M=Sup(\{ \abs{a_1},\abs{a_2},\dots,\abs{a_{J(1)}},1+\abs{L} \})$. Entonces $\abs{a_j} \le M \ \forall{j \in \N}$. $\blacksquare$
-
 \section{Convergencia.}
 \begin{defi}[Sucesiones monótonas]\rm
 Si $(a_j)$ es una sucesión de números reales tal que $a_j \le a_{j+1} \ \forall \ j \ge 1$ decimos que la sucesión es no decreciente (creciente).
 
 Si en la definicion anterior se cambia la condición a $a_j \ge a_{j+1} \ \forall \ j \ge 1$, obtenemos la definición de sucesión monótona no creciente (decreciente).
 \end{defi}
-\begin{teo}[De convergencia monótona]\rm\label{ConvergenciaMonotona}
-Sea $(a_j)$ una sucesión de números reales monótona creciente acotada superiormente y $S=\{a_1,a_2,a_3, \dots \}$.
-
-Entonces $(a_j) \rightarrow Sup(S)$.
+\begin{teo}[De convergencia monótona]\label{ConvergenciaMonotona}\rm
+Sea $(a_j)$ una sucesión de números reales monótona creciente acotada superiormente y $S=\{a_1,a_2,a_3, \dots \}$. Entonces $(a_j) \rightarrow Sup(S)$.
 \end{teo}
 Demostración:
 
-Sea $\bar{s}=Sup(S)$. Entonces, por definición de supremo, $a_j \le \bar{s} \ \forall \ j$. Luego para $\epsilon >0$ , $\bar{x}-\epsilon$ no es cota superior de $S$, con lo que existe $J(\epsilon) \in \N$ tal que $\bar{x}-\epsilon \le a_{J(\epsilon)}$. Asi pues, para $j \ge J(\epsilon)$ se tiene $a_j \in (\bar{s}-\epsilon,\bar{s}+\epsilon)$, es decir $\abs{a_j-\bar{s}} \le \epsilon$. $\blacksquare$
-
-\begin{teo}["Squeezing Theorem"]\rm\label{squeezing}
-Sean $(a_j) \mbox{ tal que } a_j \ge 0 \ \forall \ j$ y $(b_j) \mbox{ tal que } a_j \le b_j \ \forall j$ con $(b_j) \rightarrow 0$.
-Entonces $(a_j) \rightarrow 0$.
+Sea $\bar{x}=Sup(S)$. Entonces, por definición de supremo, $a_j \le \bar{x} \ \forall \ j$. Luego para $\epsilon >0$ , $\bar{x}-\epsilon$ no es cota superior de $S$, con lo que existe $J(\epsilon) \in \N$ tal que $\bar{x}-\epsilon \le a_{J(\epsilon)}$. Asi pues, para $j \ge J(\epsilon)$ se tiene $a_j \in (\bar{x}-\epsilon,\bar{x}+\epsilon)$, es decir $\abs{a_j-\bar{x}} \le \epsilon$. $\blacksquare$
+\begin{coro}\rm
+Sea $(a_j)$ una sucesión de números reales monótona decreciente acotada inferiormente y $S=\{a_1,a_2,a_3, \dots \}$. Entonces $(a_j) \rightarrow Inf(S)$.
+\end{coro}
+\begin{teo}["Squeezing Theorem"]\label{squeezing}\rm
+Sean $(a_j) \mbox{ tal que } a_j \ge 0 \ \forall \ j$ y $(b_j) \mbox{ tal que } a_j \le b_j \ \forall j$ con $(b_j) \rightarrow 0$. Entonces $(a_j) \rightarrow 0$.
 \end{teo}
 Demostración:
 
@@ -271,15 +252,12 @@ Como $b_j \le a_j \le c_j$, entonces $0 \le a_j-b_j \le c_j-b_j$.
 
 Sean $(d_j)=(a_j-b_j) \ge 0$ y $(e_j)=(c_j-b_j) \ge d_j$.
 
-Luego por el teorema (\ref{PropiedadesLimiteSucesion}) parte 1, $(e_j) \rightarrow 0$ (*). Y por el teorema (\ref{squeezing}) $(d_j) \rightarrow 0$ (**).
+Por el teorema (\ref{PropiedadesLimiteSucesion}) parte 1, $(e_j) \rightarrow 0$ con lo que existe $J_1(\epsilon) \in \N \mbox{ tal que } \abs{d_j-0}<\frac{\epsilon}{2}$
 
-Por (*) existe $J_1(\epsilon) \in \N \mbox{ tal que } \abs{d_j-0}<\frac{\epsilon}{2}$
+Y por el teorema (\ref{squeezing}), $(d_j) \rightarrow 0$, con lo que existe $J_2(\epsilon) \in \N \mbox{ tal que } \abs{b_j-L}<\frac{\epsilon}{2}$
 
-Por (**) existe $J_2(\epsilon) \in \N \mbox{ tal que } \abs{b_j-L}<\frac{\epsilon}{2}$
-
-Finalmente, si $j \ge max\{J_1(\epsilon),J_2(\epsilon)\}$, se tiene  $\abs{a_j-L}=\abs{a_j-b_j+b_j-L} \le \abs{dj-0}+\abs{b_j-L} \le \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$. $\blacksquare$
-
-\begin{teo}\rm
+Finalmente, si $j \ge \max\{J_1(\epsilon),J_2(\epsilon)\}$, se tiene  $\abs{a_j-L}=\abs{a_j-b_j+b_j-L} \le \abs{dj-0}+\abs{b_j-L} \le \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$. $\blacksquare$
+\begin{teo}[Composición de sucesiones y funciones continuas]\rm
 Sea $(a_j)$ una sucesión de números reales tal que $a_j=f(b_j)$ con $f$ una función continua y $(b_j) \rightarrow L$. Entonces $(a_j) \rightarrow f(L)$.
 \end{teo}
 Demostración:
@@ -288,14 +266,13 @@ Como $f \mbox{ continua, dado }\epsilon>0 \mbox{ existe } \delta(\epsilon)>0 \mb
 
 Como $(b_j) \rightarrow L$, $\abs{b_j-L}<\delta(\epsilon) \  \forall j \ge J(\epsilon)$
 
-Combinando lo anterior se obtiene $\abs{f(b_j)-f(L)}=\abs{a_j-f(L)}<\epsilon \ \forall j \ge J(\epsilon)$.$\blacksquare$
-
+Combinando lo anterior se obtiene $\abs{f(b_j)-f(L)}=\abs{a_j-f(L)}<\epsilon \ \forall j \ge J(\epsilon)$. $\blacksquare$
 \section{Teorema de Bolzano-Weierstrass.}
 \begin{defi}[Subsucesión]\rm
-Sea $(a_j)$ una sucesión de números reales y $j_1 \le j_2 \le \dots j_k \le \dots$ una sucesión de números naturales estrictamente creciente. Entonces la sucesión $(\Tilde{a_{j_k}})$ es llamada una subsucesión de $(a_j)$.
+Sea $(a_j)$ una sucesión de números reales y $j_1 \le j_2 \le \dots j_k \le \dots$ una sucesión de números naturales estrictamente creciente. Entonces la sucesión $(a_{j_k})$ es llamada una subsucesión de $(a_j)$.
 \end{defi}
 \begin{teo}\rm
-Si $(a_j) \rightarrow L$, cualquier subsucesión $(\Tilde{a_{j_k}}) \rightarrow L$
+Si $(a_j) \rightarrow L$, cualquier subsucesión $(a_{j_k}) \rightarrow L$
 \end{teo}
 Demostración:
 
@@ -319,12 +296,10 @@ Toda sucesión de numeros reales acotada admite una subsucesión convergente.
 Demostración:
 
 Por el lema anterior, dada una sucesión de números reales acotada, ésta admite una subsucesión monótona igualmente acotada y por el teorema (\ref{ConvergenciaMonotona}), esta subsucesión converge. $\blacksquare$
-
 \section{Criterio de Cauchy.}
 \begin{defi}[Sucesión de Cauchy]\rm
 Sea $(a_j)$ una sucesión de números reales. Decimos que la sucesión es de Cauchy si para todo $\epsilon>0$ existe $J(\epsilon) \in \N \mbox{ tal que } \abs{a_j-a_k}< \epsilon \ \forall \ j,k \ge J(\epsilon)$. 
 \end{defi}
-
 \begin{lema}\rm
 Toda sucesión de Cauchy es acotada.
 \end{lema}
@@ -333,48 +308,462 @@ Demostración:
 Sea $(a_j)$ una sucesión de Cauchy y $\epsilon=1$. Entonces si $j \ge J(1)$ entonces $\abs{a_j-a_{J(1)}}<1$. Luego para $j \ge J(1)$ se tiene $\abs{a_j} \le \abs{a_{J(1)}}+1$.
 
 Sea $M=Sup(\{ \abs{a_1},\abs{a_2}, \dots , \abs{a_{J(1)}}+1 \})$. Se sigue $\abs{a_j} \le M \ \forall{j \in \N}$. $\blacksquare$
-\begin{teo}[Criterio de convergencia de Cauchy]\rm
+\begin{teo}[Criterio de convergencia de Cauchy]\rm\label{CauchySucesiones}
 Una sucesión de números reales $(a_j)$ es convergente si y sólo si es de Cauchy.
 \end{teo}
 Demostración:
 
-Veamos que es una condición necesaria. Es decir, supongamos $(a_j) \rightarrow L$ y verifiquemos $(a_j)$ de Cauchy.
+Veamos que es una condición suficiente, es decir, supongamos $(a_j) \rightarrow L$ y verifiquemos $(a_j)$ de Cauchy.
 
 Como $(a_j) \rightarrow L$, para $\epsilon >0 \mbox{ existe } J(\epsilon) \in N \mbox{ tal que } \abs{a_j-L} < \frac{\epsilon}{2}$. Con lo que si $j,k \ge J(\epsilon)$ se tiene :
 
 $\abs{a_j-a_k}=\abs{(a_j-L)+(L-a_k)} \le \abs{a_j-L}+\abs{a_k-L} < \frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$.
 
-Veamos ahora que es una condición suficiente. Es decir, supongamos $(a_j)$ de Cauchy y verifiquemos $(a_j)$ convergente.
+Veamos ahora que es una condición necesaria, es decir, supongamos $(a_j)$ de Cauchy y verifiquemos $(a_j)$ convergente.
 
-Como $(a_j)$ de Cauchy, por el lema anterior $(a_j)$ es acotada, y por el teorema \ref{BolzanoWe} existe $(\Tilde{a_{j_k}})$ una subsucesión convergente, digamos $(\Tilde{a_{j_k}}) \rightarrow L$. Mostraremos $(a_j) \rightarrow L$.
+Como $(a_j)$ de Cauchy, por el lema anterior $(a_j)$ es acotada, y por el teorema \ref{BolzanoWe} existe $(a_{j_k})$ una subsucesión convergente, digamos $(a_{j_k}) \rightarrow L$. Mostraremos $(a_j) \rightarrow L$.
 
 Como $(a_j)$ de Cauchy, dado $\epsilon>0 \mbox{ existe } J=J(\frac{\epsilon}{2}) \in \N \mbox{ tal que si } j,k \ge J$ entonces $\abs{a_j-a_k}<\frac{\epsilon}{2}$.
 
-Luego, como $(\Tilde{a_{j_k}}) \rightarrow L$, existe $K \ge J$ perteneciente al conjunto $\{ a_1,a_2,\dots \}$ tal que $\abs{a_k-L}<\frac{\epsilon}{2}$.
+Luego, como $(a_{j_k}) \rightarrow L$, existe $K \ge J$ perteneciente al conjunto $\{ a_1,a_2,\dots \}$ tal que $\abs{a_k-L}<\frac{\epsilon}{2}$.
 
-Finalmente, por la desigualdad triangular $$\abs{a_j-L}=\abs{a_j-a_k+a_k-L} \le \abs{a_j-a_k}+\abs{a_k-L} <\frac{\epsilon}{2} + \frac{\epsilon}{2} =\epsilon $$
-$\blacksquare$
-
+Finalmente, por la desigualdad triangular $$\abs{a_j-L}=\abs{a_j-a_k+a_k-L} \le \abs{a_j-a_k}+\abs{a_k-L} <\frac{\epsilon}{2} + \frac{\epsilon}{2} =\epsilon \ \blacksquare$$
+\section{Ejercicios}\label{EjerciciosSucesiones}
+\begin{enumerate}
+    \item Demuestre $(\frac{1}{j})\rightarrow 0$.\textit{Hint: Utilice la propiedad arquimedeana}
+        \item Dadas las sucesiones cuyos terminos generales son $a_j=j^2+3$, $b_j=\frac{1}{j}$ y $(c_j)=\frac{j^2+1}{j}$, calcular
+    \begin{enumerate}
+        \item $\lim\limits_{j\to\infty} (a_j+b_j)$
+        \item $\lim\limits_{j\to\infty} (a_j-c_j)$
+        \item $\lim\limits_{j\to\infty} (a_j+c_j)$
+        \item $\lim\limits_{j\to\infty} (b_j-c_j)$
+        \item $\lim\limits_{j\to\infty} (a_j \cdot b_j)$
+        \item $\lim\limits_{j\to\infty} (b_j/c_j)$
+    \end{enumerate}
+    \item Calcule los siguientes límites
+    \begin{enumerate}
+        \item $\lim\limits_{j\to\infty} \frac{\sqrt[3]{j^3+2j-1}}{j+1}$
+        \item $\lim\limits_{j\to\infty} \sqrt[3]{\frac{j^2+3}{2j^2-7}}$
+        \item $\lim\limits_{j\to\infty} \frac{j^3-75j^2+1}{400j^2+3j}$
+        \item $\lim\limits_{j\to\infty} \left( \frac{a+j^2}{j+1}\right)^{\frac{j+5}{j}}$
+        \item $\lim\limits_{j\to\infty} \left( j^2+2\right)^{55-7j}$
+    \end{enumerate}
+    \item Hallar el primer término y la razón de una progresión geométrica, sabiendo que el tercer término es –1 y el sexto es 27.
+    \item Hallar el valor de los ángulos de un triángulo rectángulo sabiendo que están en progresión aritmética.
+    \item Para cada una de las siguientes sucesiones encuentre una expresión para su término general y encuentre su límite cuando exista 
+    \begin{enumerate}
+        \item $\frac{4}{5},\frac{7}{9},\frac{10}{13},\frac{13}{17},\dots$
+        \item $\frac{5}{3},\frac{10}{9},\frac{20}{27},\frac{40}{81},\dots$
+    \end{enumerate}
+    \item Considere la sucesión cuyo término general esta dado por la expresión $$a_j= \left\{ \begin{array}{lcc}
+             j+2 \mbox{ si j es par} \\
+             \\ \frac{1}{j+2} \mbox{ si j es impar} \\
+             \end{array}
+             \right.$$
+    ¿Es una sucesión monótona? ¿converge? ¿por qué?
+\end{enumerate}
 \clearpage
 La idea de una sucesión de números reales se puede extender hacia sucesiones de funciones. En el siguiente capítulo se considerarán únicamente funciones continuas de variable real.
 
 Al conjunto de funciones continuas de $[a,b] \rightarrow \R$ se le denota por $C([a,b],\R)$.
 \chapter{Sucesiones de funciones continuas.}
 \begin{defi}\rm
-Una sucesione de funciones continuas es una aplicación $S:\N \rightarrow C([a,b],\R)$. En la práctica se denota por $(f_n)$.
+Una sucesion de funciones continuas es una función $S:\N \rightarrow C([a,b],\R)$. En la práctica se denota por $(f_n)$.
 \end{defi}
 \section{Convergencia puntual.}
 \begin{defi}\rm
 Dado $x \in I=[a,b]$, se dice que la sucesión de funciones $(f_n)$ converge puntualmente en $x$ si la sucesión de números reales $(f_n(x))$ es convergente.
-
-Al conjunto $C$ de todos los puntos $x \in I$ en los que la sucesión de funciones $(f_n)$ converge puntualmente se le llama \textbf{campo de convergencia puntual}. Simbólicamente: $$C=\{ x \in I : (f_n(x))\mbox{  }converge \}$$
-
-Bajo el supuesto $C \neq \varnothing$, la función $f:C \rightarrow R$ definida por $$f(x)= \lim\limits_{n\to\infty}(f_n)$$ es llamada \textbf{función límite puntual} de la sucesión $(f_n)$.
 \end{defi}
-
-Para entender la definición de convergencia puntual es importante diferenciar entre la sucesión de funciones $(f_n)$ con la sucesión de números reales $(f_n(x))$. Recuerde que en una sucesión la variable siempre es $n \in \N$ y nunca es $x \in I$. Así la sucesión $(f_n(x))$ es la aplicación que a cada número natural $n$ le asocia el número real $f_n(x)$ donde \textbf{x está fijo}.
+\begin{defi}[Campo de convergencia puntual]\rm
+Al conjunto $C$ de todos los puntos $x \in I$ en los que la sucesión de funciones $(f_n)$ converge puntualmente se le llama campo de convergencia puntual. Simbólicamente: $$C=\{ x \in I : (f_n(x))\mbox{  }converge \}$$
+\end{defi}
+\begin{defi}\rm
+Bajo el supuesto $C \neq \varnothing$, la función $f:C \rightarrow \R$ definida por $$f(x)= \lim\limits_{n\to\infty}f_n(x)$$ es llamada función límite puntual de la sucesión $(f_n)$.
+\end{defi}
+Para entender la definición de convergencia puntual es importante diferenciar entre la sucesión de funciones $(f_n)$ y la sucesión de números reales $(f_n(x))$. Recuerde que en una sucesión la variable siempre es $n \in \N$ y nunca es $x \in I$. Así la sucesión $(f_n(x))$ es la aplicación que a cada número natural $n$ le asocia el número real $f_n(x)$ donde x \textbf{está fijo}.
 \section{Convergencia uniforme.}
 \begin{defi}\rm
-Sea $J$ un intervalo no vacío contenido en el campo de convergencia puntual de la sucesión $(f_n)$ y sea $f$ su función límite puntual. Se dice que la sucesión de funciones $(f_n)$ converge uniformemente a $f$ en $J$ si dado $\epsilon>0 \mbox{ existe } N(\epsilon) \in \N$ tal que $\abs{f_n(x)-f(x)}<\epsilon \ \forall{n \ge N(\epsilon)}$. 
+Sea $I$ un intervalo no vacío contenido en el campo de convergencia puntual de la sucesión $(f_n)$ y sea $f$ su función límite puntual. Se dice que la sucesión de funciones $(f_n)$ converge uniformemente a $f$ en $I$ si dado $\epsilon>0 \mbox{ existe } N(\epsilon) \in \N$ tal que $$Sup \{\abs{f_n(x)-f(x)} : x \in I \}<\epsilon \ \forall{n \ge N(\epsilon)}$$
 \end{defi}
+Analicemos la última desigualdad.
+
+$$Sup \{\abs{f_n(x)-f(x)} : x \in I \}<\epsilon \ \sii \ \abs{f_n(x)-f(x)}<\epsilon \ \forall{x \in I} $$
+$$\ \sii \ -\epsilon \le f_n(x)-f(x) \le \epsilon \ \sii \ f(x)-\epsilon \le f_n(x) \le f(x)+\epsilon \ \forall{x \in I}$$
+Esto último nos dice que la función $f_n$ se queda dentro de una \textit{banda} centrada en la gráfica de $f$ de anchura $2\epsilon$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=9cm]{grafica1.png}
+    \caption{Interpretación gráfica de la convergencia uniforme, I=[a,b]}
+\end{figure}
+
+La convergencia uniforme requiere un par de precisiones importantes:
+\begin{enumerate}
+    \item La convergencia uniforme se refiere siempre a un conjunto. No tiene sentido decir que la sucesión $(f_n)$ converge uniformemente si no se indica inmediatamente el conjunto en el que se afirma que hay convergencia uniforme. Además siempre hay convergencia uniforme en subconjuntos finitos del campo de convergencia puntual (se recomienda al lector demostrar esto último). Por ello, sólo es de interes estudiar la convergencia uniforme en conjuntos infinitos, por lo general, intervalos.
+    \item No existe el campo de convergencia uniforme, es decir, el concepto de campo de convergencia puntual no tiene análogo al caso uniforme.
+\end{enumerate}
+\begin{teo}[Condición de Cauchy para convergencia uniforme]\rm
+La sucesión $(f_n)$ converge uniformemente en $I$ a una función $f$ si y sólo si, para todo $\epsilon>0$ existe $N(\epsilon) \in \N$ tal que $\abs{f_n(x)-f_m(x)}<\epsilon$ para $n,m \ge N(\epsilon)$. 
+\end{teo}
+Demostración:
+
+Veamos que es una condición suficiente, es decir, supongamos que $(f_n)$ converge uniformemente en $I$.
+Sea $\epsilon>0$. Existe $N=N(\epsilon) \in \N$ tal que, para $n \ge N$ se tiene $\abs{f_n(x)-f(x)}<\frac{\epsilon}{2} \ \forall{x \in I}$. Entonces $\abs{f_m(x)-f(x)}<\frac{\epsilon}{2}$ y $\abs{f_n(x)-f(x)}<\frac{\epsilon}{2} \ \forall{x \in I}$. Luego 
+
+$\abs{f_m(x)-f_n(x)}=\abs{f_m(x)-f(x)+f(x)-f_n(x)} \le \abs{f_m(x)-f(x)}+\abs{f_n(x)-f(x)}<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$
+
+Veamos ahora que es una condición necesaria.
+Sea $\epsilon>0$, por hipótesis, existe $N=N(\epsilon) \in N$ tal que, para $n,m \ge N$, $\abs{f_n(x)-f_m(x)}<\frac{\epsilon}{2} \ \forall{x \in I}$. Esto dice que la sucesión de números reales $(f_n(x))$ es de Cauchy y por lo tanto convergente. Sea $f(x)=\lim\limits_{n\to\infty}f_n(x)$. Fijemos $x \in I$ y $n \ge N$. La desigualdad anterior es válida para todo $m \ge N$. Tomando límite cuando n tiende a infinito se tiene
+
+$\abs{f(x)-f_m(x)}<\frac{\epsilon}{2}<\epsilon \ \forall{n \ge N} \ \forall{x \in I}$.
+
+Es decir $f_n$ converge uniformemente a $f$. $\blacksquare$
+\begin{teo}\rm
+Sean $(a_j)$ una sucesión de números reales convergente y $(f_n)$ una sucesión de funciones $f_n:I \rightarrow \R$ que verifica
+$$Sup\{\abs{f_n(x)-f_m(x)}:x \in I\} \le \abs{a_n-a_m} \ \forall{n,m \in \N}$$
+Entonces $(f_n)$ converge uniformemente en $I$.
+\end{teo}
+Demostración:
+
+Como $(a_j)$ es convergente, satisface el criterio de Cauchy, con lo que, dado $\epsilon>0$ existe $J=J(\epsilon) \in \N$ tal que $\abs{a_n-a_m}<\frac{\epsilon}{2}$ para $n,m \ge J$. Con lo que $\abs{f_n(x)-f_m(x)} \le Sup\{\abs{f_n(x)-f_m(x)}:x \in I\} \le \abs{a_n-a_m}<\frac{\epsilon}{2}$.
+Lo anterior dice que $(f_n(x))$ es una sucesión de Cauchy y por lo tanto convergente, es decir, existe $\lim\limits_{n\to\infty}(f_n(x))$. Asi pues, $\abs{\lim\limits_{n\to\infty}f_n(x)-f_m(x)} \le \abs{L-a_m}$ donde $L=\lim\limits_{j\to\infty}(a_j)$.
+Sea $f:J \rightarrow \R$ dada por $f(x)=\lim\limits_{n\to\infty}f_n(x)$. Entonces existe $N=N(\epsilon) \in N$ tal que, para $n,m \ge N$ se tiene 
+$$Sup\{\abs{f(x)-f_m(x) : x \in J}\} \le \abs{L-a_m} \le \frac{\epsilon}{2}<\epsilon$$ $\blacksquare$
+\begin{teo}\rm
+Si $(f_n)$ es una sucesión de funciones continuas $f_n: I \subseteq{\R} \rightarrow \R$ que converge a una función $f:I \rightarrow \R$, entonces $f$ es continua.
+\end{teo}
+Demostración:
+
+Sea $a \in I$ y $\epsilon>0$ como $f_n \rightarrow f$ uniformemente en $I$, existe $N=N(\epsilon) \in \N$ tal que $$\abs{f_n(a)-f(a)}<\frac{\epsilon}{3} \mbox{ si  }n \ge N$$
+Sean $n \ge N$ y $x \in I$, como $f_n$ es continua, existe $\delta>0$ tal que $$\abs{f_n(x)-f_n(a)}<\frac{\epsilon}{3} \mbox{ si  }\abs{x-a}<\delta$$
+Con lo que, si $\abs{x-a}< \delta$, $$\abs{f(x)-f(a)} \le \abs{f(x)-f_n(x)}+\abs{f_n(x)-f_n(a)}+\abs{f_n(a)-f(a)}<\frac{\epsilon}{3}+\frac{\epsilon}{3}+\frac{\epsilon}{3}<\epsilon$$ $\blacksquare$
+\clearpage
+\section{Ejercicios.}
+\begin{enumerate}
+    \item Encuentre el límite puntual (si existe) de las siguientes sucesiones de funciones $(f_n)$ de $I$ en $\R$.
+    \begin{enumerate}
+        \item $I=\R$, $f_n(x)=\frac{nx}{1+(nx)^2}$
+        \item$I=\R$, $f_n(x)=\left\{ \begin{array}{lcc}
+             n \mbox{ , si } -n \le x \le n
+             \\0 \mbox{ , si } \abs{x}>n \\
+             \end{array}
+             \right.$
+        \item$I=\R$, $f_n(x)=\left\{ \begin{array}{lcc}
+             1 \mbox{ , si } -n \le x \le n
+             \\0 \mbox{ , si } \abs{x}>n \\
+             \end{array}
+             \right.$
+        \item$I=\R$, $f_n(x)=\left\{ \begin{array}{lcc}
+             \frac{x}{n} \mbox{ si } 0 \le x \le n
+             \\1 \mbox{ si } x>n \\
+             \end{array}
+             \right.$
+        \item $I=[0,1]$, $f_n(x)=nx(1-x^2)^n$
+        \item $I=[0,1]$, $f_n(x)=\frac{x^n}{n}$
+    \end{enumerate}
+    \item Suponga que $(f_n) \rightarrow f$ uniformemente en $I$ y que $(g_n) \rightarrow g$ uniformemente en $I$. Demuestre $(f_n+g_n) \rightarrow f+g$ uniformemente en $I$.
+    \item Sean $f_n(x)=x(1+\frac{1}{n})$ y $g_n(x)=\left\{ \begin{array}{lcc}
+             \frac{1}{n} \mbox{ , si x=0 o x es irracional }
+             \\b+\frac{1}{n} \mbox{ ,si x=a/b, a y b coprimos }  \\
+             \end{array}
+             \right.$
+             Demuestre que $(f_n)$ y $(g_n)$ convergen uniformemente en todo intervalo acotado pero $(f_n \cdot g_n)$ no converge uniformemente en ningún intervalo acotado.
+\end{enumerate}
+\chapter{Series de Números Reales}
+\section{Definiciones y primeros resultados.}
+\begin{defi}[Suma parcial]\rm
+Dada una sucesión de números reales $(a_j)$, se denota y define la n-ésima suma parcial de $(a_j)$ como $$s_n:=a_1+a_2+\dots+a_n=\sum_{j=1}^n a_j$$
+\end{defi}
+\begin{defi}\rm
+Dada una sucesión de números reales $(a_j)$, se denota y define la serie término general $a_j$ como
+$$\sum_{j \ge 1} a_j :=\lim\limits_{n\to\infty}\sum_{j=1}^n a_j=\lim\limits_{n\to\infty}s_n(x)$$
+Cuando el límite existe, se dice que la serie es convergente. Una serie es entonces el resultado de un límite.
+\end{defi}
+\textbf{Observación :} una serie convergente es el límite de la sucesión de sumas parciales $(s_n)$, entonces para estudiar series usaremos todo nuestro conocimiento sobre sucesiones. Es conveniente que el lector recuerde la definición \fullref{LimiteSucesion}.
+\begin{teo}\label{CondicionAbsolutoConverSeries}\rm
+Sea $\sum_{j \ge 1} a_j$ una serie y $s_n=\sum_{j=1}^n a_j$ la n-ésima suma parcial. Entonces
+\begin{enumerate}
+    \item La serie $\sum_{j \ge 1} a_j$ es convergente si y sólo si para cada $\epsilon>0$ existe $N=N(\epsilon) \in \N$ tal que $\abs{a_{m+1}+a_{m+2}+\dots+a_n}<\epsilon$ para cualesquier enteros positivos $n \ge m \ge N$
+    \item Si la serie $\sum_{j \ge 1} a_j$ es convergente entonces $\lim\limits_{n\to\infty}\abs{a_n}=0$
+\end{enumerate}
+\end{teo}
+Demostración:
+
+La parte 1 se sigue del teorema \ref{CauchySucesiones}, tomando $n \ge m \ge N$.
+
+La parte 2 se obtiene aplicando 1 con $m=n+1$, entonces dado $\epsilon>0$ existe $N=N(\epsilon) \in \N$ tal que, si $n \ge N$ $$\epsilon>\abs{a_{n+1}-a_n}=\abs{a_{n+1}}$$
+Lo anterior es la definición del símbolo $\lim\limits_{n\to\infty}\abs{a_n}=0$. $\blacksquare$
+
+\textbf{Observación :} La parte 2 del teorema anterior establece que la condición $\lim\limits_{n\to\infty}\abs{a_n}=0$ es una condición necesaria para la convergencia de la serie, más no es una condición suficiente. Como contraejemplo tenemos la :
+\begin{defi}[Serie armónica]\rm
+Aquella que suma los inversos multiplicativos de los enteros positivos. $\sum_{j \ge 1}\frac{1}{j}$
+\end{defi}
+Claramente $\lim\limits_{n\to\infty}\abs{a_n}=0$ (ver ejercicio 1 de la seccion \fullref{EjerciciosSucesiones}). Por otro lado, observe que $$\abs{s_{2n}-s_n}=\left |\frac{1}{n+1}+\frac{1}{n+2}+\dots+\frac{1}{2n}\right|>\left|\frac{1}{2n}+\frac{1}{2n}+\dots+\frac{1}{2n}\right|=\left|n\frac{1}{2n}\right|=\frac{1}{2}$$
+Si la serie armónica fuese convergente, para $\epsilon=\frac{1}{3}$ existiría un entero positivo $N$ tal que $\abs{s_m-s_n}<\frac{1}{3}$, pero si consideramos $m=2n$ y $n \ge N$ obtendríamos $\abs{s_{2n}-s_n}>\frac{1}{2}>\frac{1}{3}$. Lo cual es una contradicción, con lo que la serie armónica no es convergente y la condición dada en 2 no es una condición suficiente.
+\begin{teo}\label{CauchySeries}\rm
+Sea $\sum_{j \ge 1} a_j$ una serie y $s_n$ su n-ésima suma parcial. Entonces 
+\begin{enumerate}
+    \item Si $a_j \ge 0 \ \forall{j}$ y $s_n \le M$ para alguna constante $M$ entonces $\sum_{j \ge 1} a_j$ es convergente.
+    \item Si $a_j \le 0 \ \forall{j}$ y $s_n \ge M$ para alguna constante $M$ entonces $\sum_{j \ge 1} a_j$ es convergente.
+\end{enumerate}
+\end{teo}
+Demostración: Se siguen del teorema \fullref{ConvergenciaMonotona}. $\blacksquare$
+\begin{defi}\rm
+Una serie $\sum_{j \ge 1} a_j$ se dice que es absolutamente convergente si la serie $\sum_{j \ge 1} \abs{a_j}$ es convergente.
+\end{defi}
+\begin{teo}[De convergencia absoluta]\label{convergenciaAbs}\rm
+Si $\sum_{j \ge 1} a_j$ es absolutamente convergente entonces es convergente.
+\end{teo}
+Demostración:
+
+Probaremos que la serie satisface el criterio de Cauchy. Como por hipótesis $\sum_{j \ge 1} \abs{a_j}$ es convergente, satisface el criterio de Cauchy, con lo que, dado $\epsilon >0$, existe $N=N(\epsilon) \in \N$ tal que si $n,m \ge N$ entonces $$\left| \sum_{j=1}^n \abs{a_j} - \sum_{j=1}^m \abs{a_j}\right| = \left|\abs{a_{m+1}}+\abs{a_{m+2}}+ \dots +\abs{a_n} \right| = \abs{a_{m+1}}+\abs{a_{m+2}}+ \dots +\abs{a_n} < \epsilon$$
+Luego, si $n,m \ge N$, $$\abs{s_n-s_m}=\abs{a_{m+1}+a_{m+2}+\dots+a_n}\le\abs{a_{m+1}}+\abs{a_{m+2}}+\dots+\abs{a_n}<\epsilon$$
+con lo que la sucesión de sumas parciales $(s_n)$ es una sucesion de Cauchy. $\blacksquare$
+\section{Criterios de convergencia.}
+\begin{teo}[Criterio de condensación de Cauchy]\rm
+La serie $\sum_{j \ge 1} a_j$ donde $a_j \ge 0$ y $a_{j+1} \le a_j \ \forall{j}$ es convergente si y sólo si la serie $\sum_{j \ge 1} 2^ja_{2^j}$ es convergente.
+\end{teo}
+Demostración:
+
+Veamos que es una condición necesaria. Observe que 
+
+$\sum_{j \ge 1} 2^ja_{2^j}=2a_2+2^2a_{2^2}+\dots+2^na_{2^n}=2(a_2+2a_4+\dots+2^{n-1}a_{2^n})$.
+
+Dado que $a_{j+1} \le a_j \ \forall{j}$ se tiene;
+$$2a_4=a_4+a_4 \le a_3+a_4$$
+$$2^2a_8=a_8+a_8+a_8+a_8 \le a_5+a_6+a_7+a_8$$
+$$\vdots$$
+$$2^{n-1}a_{2^n}=a_{2^n}+a_{2^n}+\dots+a_{2^n} \le a_{2^{n-1}+1}+a_{2^{n-1}+2}+\dots+a_{2^n}$$
+Así que $\sum_{j \ge 1} 2^ja_{2^j} \le\footnote{note que agregamos $a_1 \ge 0$} 2(a_1+a_2+2a_4+2^2a_8+\dots+2^{n-1}a_{2^n})$
+
+$\le 2(a_1+a_2+(a_3+a_4)+(a_5+a_6+a_7+a_8)+\dots+(a_{2^{n-1}+1}+\dots+a_{2^n}))$
+
+$\le 2\sum_{j=1}^{2^n}a_j \le 2\sum_{j=1}^{\infty}a_j<\infty$ pues estamos suponiendo que la serie es convergente.
+Con lo que la sucesión de sumas parciales $\left(\sum_{j=1}^n2^ja_{2^j}\right)$ es  acotada y monotona creciente, por el teorema \ref{ConvergenciaMonotona} la sucesión es convergente.
+
+Veamos ahora que es una condición suficiente.
+
+$\sum_{j \ge 1}a_j=a_1+(a_2+a_3)+(a_4+a_5+a_6+a_7)+\dots \le a_1+2a_2+2^2a_4+\dots \le a_1+\sum_{j \ge 1}2^ja_{2^j}<\infty$. Con lo que la sucesión de sumas parciales $\left(\sum_{j=1}^na_j\right)$ es  acotada y monotona creciente y por lo tanto convergente. $\blacksquare$
+
+Para la siguiente definición, es recomendable que el lector recuerde la definición \fullref{ProgresionGeo}
+
+\begin{defi}[Serie geométrica]\rm
+La serie $\sum_{j \ge 0}a^j$ es llamada serie geométrica de argumento $a$.
+\end{defi}
+Observe que si $\abs{a} \ge 1$, entonces $\lim\limits_{j\to\infty}\abs{a^j}=\lim\limits_{j\to\infty}\abs{a}^j \ge \lim\limits_{j\to\infty}1^j=1\neq 0$. Con lo que la serie geométrica no converge cuando $\abs{a} \ge 1$, pues no satisface la pare 2 del teorema \ref{CondicionAbsolutoConverSeries}.
+
+Por otro lado, $s_n=\sum_{j=0}^na^j=a^0+a^1+\dots+a^n$
+
+$\Rightarrow as_n=a+a^2+\dots+a^{n+1}=s_n-1+a^{n+1} \Rightarrow 1-a^{n+1}=s_n(1-a)$ si $a\neq1, s_n=\frac{1-a^{n+1}}{1-a}$
+
+Si $\abs{a}<1$, $a^{n+1} \rightarrow 0$ cuando $n \rightarrow \infty$, y en tal caso $\sum_{j \ge 1} a_j = \lim\limits_{n \to \infty}s_n = \frac{1}{1-a}$.
+
+Este resultado básico es muy importante.
+\begin{teo}\label{SumRestPosNega}\rm
+Sumar o restar una cantidad finita de elementos de una serie no afecta su convergencia (o divergencia).
+
+Con más precisión, $\sum_{j \ge }a_j$ es convergente (o divergente) si y sólo si $\sum_{j \ge k} a_j$ es convergente (o divergente).
+\end{teo}
+Para la demostración basta mostrar que $\sum_{j \ge }a_j$ satisface la parte 1 del teorema \ref{CauchySeries} si y sólo si $\sum_{j \ge k} a_j$ la satisface. Los detalles de la prueba se dejan como ejercicio para el lector.
+\begin{defi}[Serie alternante]\rm
+Es una serie de la forma $\sum_{j \ge 0} b_j(-1)^j$ donde $b_j \ge 0 \ \forall{j}$
+\end{defi}
+\begin{teo}[Criterio de Leibniz]\rm
+Si la serie alternante $\sum_{j \ge 0} b_j(-1)^j$ satisface $b_{j+1} \le b_j \ \forall{j}$ y $\lim\limits_{j \to \infty}b_j=0$ entonces es convergente.
+\end{teo}
+Este criterio es importante pues dicta que, para series alternantes, la condicion necesaria 2 de \ref{CauchySeries} tambien es suficiente.
+
+Demostración:
+
+Sea $s_n$ la n-ésima suma parcial de la serie, entonces $s_{2k-1}=(b_0-b_1)+(b_2-b_3)+\dots+(b_{2k-2}-b_{2k-1})$ donde todos los términos dentro de paréntesis son no negativos. Por oto lado, $s_{2k}=b_0+(-b_1+b_2)-b_5+(-b_6+b_7)+\dots(-b_{2k-1}+b_{2k})$ donde todos los términos dentro de paréntesis son no positivos. Asi que 
+
+$s_1 \le s_3 \le s_5 \le \dots \le s_{2k-3} \le s_{2k-1}$
+
+$s_0 \ge s_2 \ge s_4 \le \dots \ge s_{2k-2} \ge s_{2k}$
+
+Luego $s_{2k-1}=b_0-(b_1-b_2)-(b_3-b_4)-\dots-(b_{2k-3}-b_{2k-2})-b_{2k-1} \le s_0$.
+
+Con lo que la sucesión de sumas parciales $(s_{2k-1})$ es monótona creciente acotada superiormente por $s_0$, por lo tanto convergente, digamos $s_{2k-1} \rightarrow L'$. Similarmente $(s_{2k})$ es monótona decreciente acotada inferiormente por $s_1$ por lo tanto convergente, digamos $s_{2k} \rightarrow L''$.
+
+Observe ahora $$\abs{L'-L''}=\abs{L'-s_{2k-1}+s_{2k-1}-s_{2k}+s_{2k}-L''} \le \abs{L'-s_{2k-1}}+\abs{s_{2k-1}-s_{2k}}+\abs{s_{2k}-L''}$$
+
+Tomando límite cuando $k$ tiende a infinito se concluye $\abs{L'-L''}=0 \Rightarrow L'=L''=L$.
+
+Por lo tanto $\lim\limits_{n \to \infty}s_n=\sum_{j \ge 0}b_j(-1)^j=L$ es decir la serie converge.$\blacksquare$
+
+\begin{defi}[Convergencia condicional]\rm
+Si la serie $\sum _{j \ge 0}a_n$ es convergente pero no absolutamente convergente, se dice que la serie es condicionalmente convergente.
+\end{defi}
+\begin{teo}[Criterio de Abel]\rm
+Sea $\sum_{j \ge 1}a_j$ una serie tal que sus sumas parciales satisfacen $\abs{s_n}<c$ para todo $n$ y para alguna constante $c$. Sea $\sum_{j \ge 1}b_j$ una serie de términos no negativos monótona decreciente tal que $\lim\limits_{j \to \infty}b_j=0$. Entonces $\sum_{j \ge 1}a_jb_j$ es convergente.
+\end{teo}
+Demostración:
+
+Vamos a probar que $\sum_{j \ge 1}a_jb_j$ satisface el criterio de Cauchy.
+
+Sea $s_n=\sum_{j=1}^na_jb_j$. Entonces si $m \ge n$ se tiene $$\abs{s_m-s_n}=\abs{a_{n+1}b_{n+1}+a_{n+2}b_{n+2}+ \dots +a_mb_m}$$
+
+$$=\left| \left( \sum_{j=1}^{n+1}a_j-\sum_{j=1}^{n}a_j \right)b_{n+1}+\left( \sum_{j=1}^{n+2}a_j-\sum_{j=1}^{n+1}a_j \right)b_{n+2}+ \dots + \left( \sum_{j=1}^{m}a_j-\sum_{j=1}^{m-1}a_j \right)b_m \right|$$
+$$=\left| \left( \sum_{j=1}^{m}a_j \right)b_{m}-\left( \sum_{j=1}^{n}a_j \right)b_{n+1}+\left( \sum_{j=1}^{n+1}a_j \right)(b_{n+1}-b_{n+2})+\dots+ \left( \sum_{j=1}^{m-1}a_j \right)(b_{m-1}-b_m) \right|$$
+$$\le cb_m+cb_{n+1}+c(b_{n+1}-b_{n+2})+\dots+c(b_{m-1}-b_{m})$$
+$$=c(\cancel{b_m}+2b_{n+1}-\cancel{b_{n+2}}+\cancel{b_{n+2}}-\cancel{b_{n+3}}+\cancel{b_{n+3}}+\dots+-\cancel{b_{m-1}}+\cancel{b_{m-1}}-\cancel{b_m})$$
+$$=2cb_{n+1}\xrightarrow[n \to \infty]\,{0}$$
+Por lo tanto la serie converge. $\blacksquare$
+\begin{teo}\label{positivosNegativos}\rm
+Suponga que $\sum_{j \ge 1}a_j$ converge absolutamente.
+
+Considere la serie $\sum_{k \ge i}a_k$ formada en orden por los términos $a_k$ positivos.
+
+Considere la serie $\sum_{l \ge i}a_l$ formada en orden por los términos $a_l$ negativos.
+
+Entonces $\sum_{k \ge i}a_k$ y $\sum_{l \ge i}a_l$ convergen. Más aún, $\sum_{j \ge 1}a_j=\sum_{k \ge i}a_k+\sum_{l \ge i}a_l$.
+
+En otras palabras, si una serie es absolútamente convergente entonces su valor puede obtenerse sumando todos los términos positivos y luego todos los negativos, o viceversa.
+\end{teo}
+Demostración:
+
+Observe que para cualquier $n$, $$\sum_{k=1}^n a_k \le \sum_{j \ge 1}\abs{a_j} < \infty$$
+$$\sum_{l=1}^n a_l \ge \sum_{j \ge 1}(-\abs{a_j}) > -\infty$$
+Es decir, las sumas parciales de términos positivos estan acotadas por arriba y son monótonas crecientes, por lo tanto convergentes digamos a $P$ . Similarmente, la suma de términos negativos estan acotadas por abajo y son monótonas decrecientes, por lo tanto convergentes, digamos a $L$. Luego, para $n$ suficientemente grande : $$\left| \sum_{j=1}^na_j -P-N \right|=\left| \left( \sum_{\substack{a_k \ge 0\\k \le n}}a_k-P \right) + \left( \sum_{\substack{a_l \le 0\\l \le n}}a_l-N \right) \right|$$
+$$\le \left| \left( \sum_{\substack{a_k \ge 0\\k \le n}}a_k-P \right) \right| + \left| \left( \sum_{\substack{a_l \le 0\\l \le n}}a_l-N \right) \right| <\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon$$
+Lo anterior significa que $\sum_{j \ge 1}a_j$ converge a $P+N$.$\blacksquare$
+\begin{defi}[Reordenamiento]\rm
+Se dice que $\sum_{r \ge 1}a_r$ es un reordenamiento de $\sum_{j  \ge 1}a_j$ si existe una biyección $\sigma :\N \to \N$ tal que para todo $r$, $a_r=a_{\sigma(j)}$, para algún $j$.
+\end{defi}
+\begin{teo}\label{TeoReordenamiento}\rm
+Sea $\sum_{j \ge 1}a_j$ tal que converge absolutamente. Sea $\sum_{r \ge 1}a_r$ un reordenamiento de la serie. Entonces si $\sum_{j \ge 1}a_j$ tiene límite $L$, $\sum_{r \ge 1}a_r$ también tiene límite $L$.
+\end{teo}
+Demostración:
+
+Primero supongamos que $a_j \ge 0 \ \forall{j}$ y sea $\sum_{r \ge 1}a_r$ un reordenamiento. Por hipótesis $\sum_{j \ge 1}a_j\xrightarrow[n \to \infty]\,{L}$, entonces $\left| \sum_{j=1}^na_j-L \right| < \epsilon \ \forall{n \ge N(\epsilon)}$. Considere la suma parcial $\sum_{r=1}^ma_r$ y sea $n \ge N(\epsilon)$ fijo, entonces para $m$ suficientemente grande
+\begin{equation}
+ \sum_{j=1}^na_j \le \sum_{r=1}^ma_r \label{1}   
+\end{equation}
+Similarmente existe $n'$ suficientemente grande tal que 
+\begin{equation}
+    \sum_{r=1}^{m}a_r \le \sum_{j=1}^{n'}a_j \le \sum_{j \ge 1}a_j=L \label{2}
+\end{equation}
+Juntando \ref{1} y \ref{2} se concluye $\sum_{j=1}^{n}a_j \le \sum_{r=1}^{m}a_r \le L$, por lo tanto $\left| L-\sum_{r=1}^{m}a_r \right| \le \left| L-\sum_{j=1}^{n}a_j \right|< \epsilon$ para $m$ suficientemente grande. Lo anterior es la definición del símbolo $\sum_{r \ge 1}a_r=\lim\limits_{m \to \infty} \sum_{r=1}^{m}a_r=L$
+
+En el caso general la serie $\sum_{j \ge 1}a_j$ tiene términos positivos y negativos, y por el teorema \ref{positivosNegativos}, $\sum_{j \ge 1}a_j=\sum_{k \ge 1}a_k+\sum_{l \ge 1}a_l$, por la primera parte de esta prueba, los valores de los límites de las ultimas dos series no se afectan bajo reordenamientos, con lo que $\sum_{j \ge 1}a_j=\sum_{k \ge 1}a_k+\sum_{l \ge 1}a_l=\sum_{r \ge 1}a_r$. $\blacksquare$
+\begin{teo}\rm
+Si $\sum_{j \ge 1}a_j$ es condicionalmente convergente, entonces la serie de sus términos positivos $\sum_{k \ge 1}a_k$ y la serie de sus términos negativos $\sum_{l \ge 1}a_l$ divergen.
+\end{teo}
+Demostración :
+
+Observe que la hipótesis $\sum_{j \ge 1}\abs{a_j}$ divergente significa necesariamente que hay una infinidad de términos $a_j's$ distintos de cero, en particular hay una infinidad de términos positivos o negativos. Supongamos que hay una infinidad de términos positivos y sólo un número finito de términos negativos, en tal caso, por el teorema \ref{SumRestPosNega}, la suma de términos positivos se obtiene restando un número finito de términos de la serie absoluta $\sum_{j \ge 1}\abs{a_j}$ y por lo tanto diverge. Pero esto implicaría también la divergencia de la serie $\sum_{j \ge 1}a_j$ pues también se escribiría como la serie absoluta menos un número finito de términos. Una contradicción.
+
+Si hubiera una cantidad finita de términos positivos un argumento similar llevaría a una contradicción (es recomendable que el lector proporcione estos detalles).
+
+Asi se tiene que $\sum_{j \ge 1}a_j$ debe tener una cantidad infinita de términos positivos y negativos. Observe que $\sum_{j=1}^n\abs{a_j}=\sum_{k=1}^{n'}a_k-\sum_{l=1}^{n''}a_l$, con $n'+n''=n$. Si $\sum_{k=1}^{n'}a_k$ y $\sum_{l=1}^{n''}a_l$ convergieran, entonces la serie absoluta convergería tambien, contradicción, con lo que al menos una de ellas diverge. Si sólo una de ellas diverge, tomando límite cuando n tiende a infinito, la serie $\sum_{j \ge 1}a_j$ divergería, con lo que ambas series divergen. $\blacksquare$
+
+Este teorema nos dice que una serie condicionalmente convergente no puede escribirse como la suma de su serie de términos positivos y su serie de términos negativos.
+\section{Criterios de convergencia absoluta y divergencia.}
+Recuerde que la convergencia absoluta de una serie implica su convergencia. Por esta razón es conveniente invertir tiempo en la conergencia absoluta.
+\begin{teo}[Comparación por Mayorantes]\rm
+Sea $b_j \ge 0 \ \forall{j}$ y $\sum_{j \ge 1}b_j$ una serie convergente. Entonces si $\abs{a_j} \le b_j \ \forall{j}$, $\sum_{j \ge 1}a_j$ es absolutamente convergente.
+\end{teo}
+\textbf{Observación : }la conclusión del teorema anterior implica la convergencia de la serie (teorema \ref{convergenciaAbs}), más aún, implica también que cualquier reordenamiento de la serie converge al mismo valor (teorema \ref{TeoReordenamiento}).
+
+Demostración :
+
+Se sigue de la siguiente observación.
+
+Si $A_n=\sum_{j=1}^na_j$ y $B_n=\sum_{j=1}^nb_j$, entonces para $n \ge m$ se tiene $\abs{A_n-A_m} \le \abs{B_n-B_m}$. Como la serie $\sum_{j \ge 1}b_j$ es convergente satisface el criterio de Cauchy y el término $\abs{B_n-B_m}$ es arbitrariamente pequeño para n y m suficientemente grandes, por lo tanto la serie $\sum_{j \ge 1}a_j$ también satisface el criterio de Cauchy. $\blacksquare$
+
+\textbf{Observación :} claramente si $\abs{a_j} \ge b_j$ y $\sum_{j \ge 1}b_j$ diverge, la serie $\sum_{j \ge 1}\abs{a_j}$ también diverge. En el mejor de los casos la serie $\sum_{j \ge 1}a_j$ converge condicionalmente.
+\begin{teo}\rm
+Sea $\sum_{j \ge 1}a_j$ una serie y suponga que $\abs{a_j} \le c_0q^j \ \forall{j \ge j_0}$ para alguna constante $c_0 \ge 0$ y para alguna constante $q \in (0,1)$. Entonces $\sum_{j \ge 1}a_j$ converge absolutamente.
+\end{teo}
+Demostración:
+
+Recuerde que la convergencia o divergencia de una serie no se altera si se suma o resta una cantidad finita de elementos, entonces nos enfocaremos en $\sum_{j \ge j_0}a_j$.
+Por hipótesis $$\sum_{j=j_0}^n\abs{a_j} \le \sum_{j=j_0}^nc_0q^j=c_0q^{j_0}\sum_{j=0}^{n-j_0}q^j=c_0q^{j_0}\frac{1-q^{n-j_0+1}}{1-q}$$
+Entonces $$\sum_{j \ge j_0}\abs{a_j}=\lim\limits_{n \to \infty}\sum_{j=j_0}^n\abs{a_j} \le \lim\limits_{n \to \infty}c_0q^{j_0}\frac{1-q^{n-j_0+1}}{1-q}=c_0q^{j_0}\frac{1}{1-q}<\infty$$ Con lo que la sucesión de sumas parciales es monótona creciente y acotada superiormente. $\blacksquare$
+\begin{coro}[Criterio del cociente]\rm
+Suponga que $\left| \frac{a_{j+1}}{a_j} \right| < \alpha \ \forall{j \ge j_0}$. Si $\alpha \in (0,1)$ entonces $\sum_{j \ge 1}a_j$ converge absolutamente. Alternativamente, si $\lim\limits_{j \to \infty}\left| \frac{a_{j+1}}{a_j} \right|= \beta \mbox{ y } \beta<1$ la serie converge absolutamente.
+\end{coro}
+\begin{coro}[Criterio de la raíz]\rm
+Suponga que $(\abs{a_j})^{1/j}<\alpha \ \forall{j \ge j_0}$. Si $\alpha \in (0,1)$ entonces $\sum_{j \ge 1}a_j$ converge absolutamente. Alternativamente, si $\lim\limits_{j \to \infty}\left| \frac{a_{j+1}}{a_j} \right|^{1/j}=\beta<1$, $\sum_{j \ge 1}a_j$ converge absolutamente.
+\end{coro}
+\begin{teo}[Criterio de comparación del límite]\rm
+
+\end{teo}
+
+\section{Ejercicios.}
+\begin{enumerate}
+    \item ¿Para cuáles de las siguientes series puede afirmar que no convergen? $$\mbox{(a)  } \sum_{j \ge 1}\frac{3-2j^2}{8+j^2} \mbox{  (b)  } \sum_{j \ge 1}\frac{(-1)^{j-1}}{j} \mbox{  (c)  } \sum_{j \ge 1}j-\frac{j^2(j+1)}{j^2-1}$$
+    \item Use el criterio de condensación de Cauchy para determinar los valores de $p>0$ para los cuales $\sum_{j \ge 1}\frac{1}{j^p}$ es convergente.
+    \item Demuestre que la serie armónica alternante $\sum_{j \ge 1}\frac{(-1)^j}{j}$ es condicionalmente convergente.
+    \item Demuestre que si $\lim\limits_{j \to \infty}\abs{a_j}^{\frac{1}{j}}=\beta>1$ entonces $\sum_{j \ge 1}a_j$ no es convergente.
+    \item Considere la serie $\sum_{j \ge 0}a_j$ donde $a_j=\left\{ \begin{array}{lcc}
+             \ q^j \mbox{ , si j es par }
+             \\2q^j \mbox{ , si j es impar }  \\
+             \end{array}
+             \right.$
+    con $0<\abs{q}<1$
+    \begin{enumerate}
+        \item Demuestre que el criterio del cociente solo asegura la convergencia de la serie cuando $0<\abs{q}<1/2$.
+        \item Demuestre que el criterio de la raíz solo asegura la convergencia de la serie cuando $0<\abs{q}<1$.
+    \end{enumerate}
+\end{enumerate}
+\chapter{Teorema de Taylor.}
+\begin{defi}[Polinomio de Taylor]\rm
+Sea $f: \R \rightarrow \R $ una función k veces diferenciable en el punto $a \in \R$. Se denota y define el polinomio de Taylor de orden k de $f$ centrado en el punto $a$ como sigue
+$$T_k(x):=\sum_{j=0}^k \frac{f^{(j)}(a)}{j!}(x-a)^j$$
+\end{defi}
+\begin{teo}[De Taylor]\rm
+Sean $n \in \N, I=[a,b], f:I \rightarrow \R$ tal que $f$ y sus primeras $n$ derivadas son continuas en $I$ y $f^{(n+1)}$ existe en $(a,b)$.
+
+Entonces si $a \in I$, para cualquier $x \in I$ existe un punto $\xi$ entre $x$ y $a$ tal que:
+$$f(x)=T_n(a)+R_n(x)$$
+Donde $R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}$
+\end{teo}
+A la expresión $R_n(x)$ se le conoce como \textbf{forma de Lagrange del residuo}. Este teorema permite obtener aproximaciones polinómicas de una función en un entorno de $a$ en que la función sea diferenciable. Además el teorema permite acotar el error obtenido mediante dicha estimación.
+
+Demostración:
+
+Sean $a,x$ fijos y $J$ el intervalo cerrado con extremos $a$ y $x$.
+Definimos la función $F$ en $J$ por $$F(t):=f(x)-f(t)-(x-t)f'(t)-\dots-\frac{(x-t)^n}{n!}f^{(n+1)}(t)$$
+Se verifica sin dificultad que $$F'(t)=-\frac{(x-t)^n}{n!}f^{(n+1)}(t)$$
+Defina ahora $G$ en $J$ como $$G(t):=F(t)-\left(\frac{x-t}{x-a}\right)^{n+1}F(a)$$
+Es claro que $G(a)=G(x)=0$. Por el teorema de Rolle existe $\xi$ entre $x$ y $a$ tal que $$0=G'(\xi)=F'(\xi)+(n+1)\frac{(x-\xi)^n}{(x-a)^{n+1}}F(a)$$
+De aqui obtenemos $$F(a)=-\frac{1}{n+1}\frac{(x-a)^{n+1}}{(x-\xi)^n}F'(\xi)=\frac{1}{n+1}\frac{(x-a)^{n+1}}{(x-\xi)^n}\frac{(x-\xi)^n}{n!}f^{(n+1)}(\xi)$$
+$$=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}$$
+Lo que implica el resultado anunciado. $\blacksquare$
+
+\textbf{Observación}. El polinomio de Taylor $T_n(x)$ y todas sus derivadas hasta el orden n coinciden con las de la función $f(x)$ en el punto $x=a$.
+\section{Aplicaciones.}
+El término del residuo $R_n(x)$ en el teorema de Taylor se puede usar para estimar el error cometido al aproximar una función con su polinomio de Taylor. Si el número n es dado, entonces surge la pregunta de qué tan precisa es la aproximación. Por otro lado, si se especifica una cierta precisión, entonces la cuestión es encontrar un valor adecuado para n. Los siguientes ejemplos ilustran cómo se responde a estas preguntas.
+\begin{ejem}\rm
+Use el teorema de Taylor con $n=2$ para aproximar $\sqrt[3]{1+x}$. 
+\end{ejem}
+Sean $f(x)=(1+x)^{\frac{1}{3}}$, $a=0$, $n=2$.
+Como $f'(x)=\frac{1}{3}(1+x)^{-2/3}$ y $f''(x)=\frac{-2}{9}(1+x)^{-5/3}$, se tiene $f'(0)=\frac{1}{3}$ y $f''(0)=\frac{-2}{9}$ con lo que $$f(x)=T_2(x)+R_2(x)=1+\frac{1}{3}x-\frac{1}{9}x^2+\frac{5}{81}(1+\xi)^{-8/3}x^3$$
+Para algún punto $\xi$ entre 0 y $x$. Por ejemplo, para $x=0.2$ $$\sqrt[3]{1.2} \approx T_2(0.2)=\frac{239}{225}$$
+Más aún, como en este caso $\xi>0$, $(1+\xi)^{-8/3}<1$ con lo que $$R_2(x) \le \frac{5}{81}(0.2)^3=\frac{1}{2025}<\num{5e-4}$$
+Con lo que $\abs{\sqrt[3]{1.2}-\frac{239}{225}}<\num{5e-4}$
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=7cm]{grafica2.png}
+    \caption{En negro la gráfica de $f$, punteado la gráfica de $T_2$}
+\end{figure}
+\begin{ejem}\rm
+Aproxime el valor del número $e$ con error menor a $10^{-5}$.
+\end{ejem}
+Considere la función $f(x)=e^x$, $a=0$ y $x=1$ en el teorema de Taylor. Necesitamos determinar $n$ tal que $R_n(x)<10^{-5}$. Para hacerlo vamos a usar el hecho que $f^{(k)}(x)=e^x \ \forall{k \in \N}$ y que $e^x<3$ para $0\le x \le 1$.
+El polinimio de Taylor de grado $n$ de $f$ está dado por $$T_n(x)=1+x+\frac{x^2}{2!}+\dots+\frac{x^n}{n!}$$
+y el residuo, para $x=1$ es $R_n(1)=\frac{e^{\xi}}{(n+1)!}$ para algún $0<\xi<1$.
+Como $e^{\xi}<3$, buscamos $n$ tal que $\frac{3}{(n+1)!}<10^{-5}$. Un cálculo sencillo muestra que $9!=362880>\num{3e5}$ de modo que el valor $n=8$ proporciona la precisión deseada, ademas, como $8!=40320$, ningún valor menor a 9 será suficiente. Con lo que $$T_8(1)=1+1+\frac{1}{2!}+\dots+\frac{1}{8!}=2.71828$$ aproxima el valor de $e$ con error menor a $10^{-5}$.
+\section{Ejercicios}
+\begin{enumerate}
+    \item Calcule los polinomios de Taylor de orden 1 y 2 centrados en el punto $a=0$ para las siguientes funciones
+    \begin{enumerate}
+        \item $f(x)=\log(\cos{x})$
+        \item $f(x)=e^{\sin{x}}$
+        \item $f(x)=\cosh{x}$
+    \end{enumerate}
+    \item Demuestre que si $0 \le x \le 0.01$ entonces $e^x$ se puede reemplazar por $1+x$ con un error inferior al $6\% \mbox{ de }x$. \textit{Hint: $e^{0.01}=1.01$}
+    \item Si reemplazamos $\cos{x}$ por $1-\frac{x^2}{2}$ y $\abs{x}<0.5$, ¿Qué error se está cometiendo?
+    \item Demuestre $e^{\pi}>\pi^e$.
+\end{enumerate}
 \end{document}
